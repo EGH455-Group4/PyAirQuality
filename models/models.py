@@ -1,3 +1,5 @@
+import datetime
+
 class SensorReading:
     def __init__(self, reading: float, error: str):
         self.reading = reading
@@ -13,5 +15,10 @@ class Sensors:
         self.temperature = temperature
 
 class AirQuality:
-    def __init__(self, *sensors: Sensors):
+    def __init__(self, sensors: Sensors, timestamp: datetime.datetime):
         self.sensors = sensors
+        self.timestamp = timestamp
+
+class GeneralResponse:
+    def __init__(self, status: str):
+        self.status = status

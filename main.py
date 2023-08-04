@@ -1,13 +1,16 @@
 import config.config as config
-import service.service
-import handler.handler
+import service.service as service
+import handler.handler as handler
+import sensor.sensor as sensor
 
 def main():
     cfg = config.Config("config.json")
 
-    srv = service.service.Service(cfg)
+    snrs = sensor.Sensor()
 
-    hndlr = handler.handler.Handler(cfg, srv)
+    srv = service.Service(cfg, snrs)
+
+    hndlr = handler.Handler(cfg, srv)
     hndlr.Run()
 
 if __name__ == "__main__":
