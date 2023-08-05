@@ -14,6 +14,7 @@ class EnvSensor(Sensor):
             temperature=SensorReading(33.2, ""),
         )
 
-    def set_lcd_screen(self, option: str):
+    def set_lcd_screen(self, option: str) -> bool:
         '''Will attempt to update the LCD screen on the sensor.'''
         print("ENV" + option)
+        return False

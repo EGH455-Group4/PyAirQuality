@@ -10,5 +10,5 @@ class Sensor(ABC):
         '''Will read the sensors in implementations.'''
 
     @abstractmethod
-    def set_lcd_screen(self, option: str):
+    def set_lcd_screen(self, option: str) -> bool:
         '''Will alter the LCD screen in implementations.'''

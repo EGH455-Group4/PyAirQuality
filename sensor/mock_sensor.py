@@ -16,6 +16,7 @@ class MockSensor(Sensor):
             temperature=SensorReading(random.random()*100, ""),
         )
 
-    def set_lcd_screen(self, option: str):
+    def set_lcd_screen(self, option: str) -> bool:
         '''Will log out the set option.'''
         print("MOCK" + option)
+        return True
