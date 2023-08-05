@@ -76,7 +76,7 @@ def read_gas():
 
 def get_cpu_temperature():
     '''get_cpu_temperature will attempt to read the current cpu temperature in C'''
-    with open("/sys/class/thermal/thermal_zone0/temp", "r") as temperature_file:
+    with open("/sys/class/thermal/thermal_zone0/temp", "r", encoding="utf8") as temperature_file:
         temp = temperature_file.read()
         temp = int(temp) / 1000.0
     return temp

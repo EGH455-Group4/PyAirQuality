@@ -12,7 +12,7 @@ from screen.env_screen import EnvScreen
 
 def main():
     '''Is the main start of the application.'''
-    print(local_ip())
+    local_pi_ip = local_ip()
 
     cfg = Config("config.json")
 
@@ -23,7 +23,7 @@ def main():
         snr = EnvSensor(cfg.get_key("temperature_factor"))
         scre = EnvScreen()
 
-    srv = Service(cfg, snr, scre)
+    srv = Service(cfg, snr, scre, local_pi_ip)
 
     background_sensor_read_thread = Thread(daemon=True, target=srv.run_read_sensors)
 

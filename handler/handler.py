@@ -86,4 +86,4 @@ class Handler():
 
     def Run(self):
         '''Will actually run the air quality server'''
-        self.app.run(debug=True, port=self.cfg.get_key("port"), host="0.0.0.0")
+        self.app.run(debug=False, port=self.cfg.get_key("port"), host="0.0.0.0")
