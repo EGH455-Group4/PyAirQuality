@@ -1,62 +1,73 @@
-import config.config as config
-import sensor.sensor as sensor
+'''Service.py holds the service level functionality of the Air Quality app.'''
 from datetime import datetime
-import models.models as models
 import time
 
+from config.config import Config
+from sensor.sensor import Sensor
+from models.models import AirQuality,Sensors,SensorReading
+
 class Service():
-    def __init__(self, cfg: config.Config, snr: sensor.Sensor):
+    '''Service will have service level functions.'''
+    def __init__(self, cfg: Config, snr: Sensor):
         self.cfg = cfg
         self.snr = snr
         self.running = True
         self.read_time = datetime.now()
-        self.sensors = models.Sensors(
-            light=models.SensorReading(0, ""),
-            hazardous_gases=models.SensorReading(0, ""),
-            humidity=models.SensorReading(0, ""),
-            pressure=models.SensorReading(0, ""),
-            temperature=models.SensorReading(0, ""),
+        self.sensors = Sensors(
+            light=SensorReading(0, ""),
+            hazardous_gases=SensorReading(0, ""),
+            humidity=SensorReading(0, ""),
+            pressure=SensorReading(0, ""),
+            temperature=SensorReading(0, ""),
         )
 
-    def Start(self):
-        self.resetVars()
+    def start(self):
+        '''Will reset vars and will enable the service to start collecting information.'''
+        self.reset_vars()
 
         self.running = True
 
-    def Stop(self):
+    def stop(self):
+        '''Will reset vars and will disable the service from collecting information.'''
         self.running = False
 
-        self.resetVars()
+        self.reset_vars()
 
-    def GetAirQuality(self) -> models.AirQuality:
-        return models.AirQuality(self.sensors, self.read_time)
+    def get_air_quality(self) -> AirQuality:
+        '''Will give the current air quality readings.'''
+        return AirQuality(self.sensors, self.read_time)
 
-    def SingleRead(self) -> models.AirQuality:
-        self.readSensors()
+    def single_read(self) -> AirQuality:
+        '''Will run the read sensor function and give the current air quality readings.'''
+        self.read_sensors()
 
-        return models.AirQuality(self.sensors, self.read_time)
+        return AirQuality(self.sensors, self.read_time)
 
-    def ChangeLCDScreen(self, option: str):
-        self.ChangeLCDScreen(option)
+    def change_lcd_screen(self, option: str):
+        '''Will attempt to alter the LCD screen on the sensor.'''
+        self.snr.set_lcd_screen(option)
 
-    def RunReadSensors(self):
+    def run_read_sensors(self):
+        '''Will loop and collect information if running.'''
         while True:
             if self.running:
-                self.readSensors()
+                self.read_sensors()
 
             time.sleep(2)
 
-    def readSensors(self):
+    def read_sensors(self):
+        '''Will collect sensor information and update read time.'''
         self.read_time = datetime.now()
 
-        self.sensors = self.snr.ReadSensors()
+        self.sensors = self.snr.read_sensor()
 
-    def resetVars(self):
+    def reset_vars(self):
+        '''Will reset the current sensor information.'''
         self.read_time = datetime.now()
-        self.sensors = models.Sensors(
-            light=models.SensorReading(0, ""),
-            hazardous_gases=models.SensorReading(0, ""),
-            humidity=models.SensorReading(0, ""),
-            pressure=models.SensorReading(0, ""),
-            temperature=models.SensorReading(0, ""),
+        self.sensors = Sensors(
+            light=SensorReading(0, ""),
+            hazardous_gases=SensorReading(0, ""),
+            humidity=SensorReading(0, ""),
+            pressure=SensorReading(0, ""),
+            temperature=SensorReading(0, ""),
         )

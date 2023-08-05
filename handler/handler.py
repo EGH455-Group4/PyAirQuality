@@ -1,63 +1,78 @@
-import config.config as config
-import service.service as service
-import models.models as models
-import models.constants as constants
-import models.fields as fields
+'''Handler will showcase the Air Quality endpoints'''
 from flask import Flask, request
 from flask_restful import Resource, Api, marshal
 
+from config.config import Config
+from service.service import Service
+from models.models import GeneralResponse
+from models.constants import ACCEPTABLE_LCD_DISPLAYS
+from models.fields import air_quality_fields, general_response_fields
+
 class AirQuality(Resource):
+    '''Used to retrieve the current air quality reading'''
     def __init__(self, **kwargs):
         self.srv = kwargs['srv']
-        assert isinstance(self.srv, service.Service)
+        assert isinstance(self.srv, Service)
 
     def get(self):
-        return marshal(self.srv.GetAirQuality(), fields.air_quality_fields)
+        '''The HTTP GET response'''
+        return marshal(self.srv.GetAirQuality(), air_quality_fields)
 
 class SingleRead(Resource):
+    '''Used to read the current air quality reading'''
     def __init__(self, **kwargs):
         self.srv = kwargs['srv']
-        assert isinstance(self.srv, service.Service)
+        assert isinstance(self.srv, Service)
 
     def get(self):
-        return marshal(self.srv.SingleRead(), fields.air_quality_fields)
+        '''The HTTP GET response'''
+        return marshal(self.srv.SingleRead(), air_quality_fields)
 
 class Start(Resource):
+    '''Used to start reading the air quality'''
     def __init__(self, **kwargs):
         self.srv = kwargs['srv']
-        assert isinstance(self.srv, service.Service)
+        assert isinstance(self.srv, Service)
 
     def post(self):
+        '''The HTTP POST response'''
         self.srv.Start()
-        return marshal(models.GeneralResponse(status="OK"), fields.general_response_fields)
+        return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class Stop(Resource):
+    '''Used to stop reading the air quality'''
     def __init__(self, **kwargs):
         self.srv = kwargs['srv']
-        assert isinstance(self.srv, service.Service)
+        assert isinstance(self.srv, Service)
 
     def post(self):
+        '''The HTTP POST response'''
         self.srv.Stop()
-        return marshal(models.GeneralResponse(status="OK"), fields.general_response_fields)
+        return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class LcdScreen(Resource):
+    '''Used to alter the LCD screen on the sensor'''
     def __init__(self, **kwargs):
         self.srv = kwargs['srv']
-        assert isinstance(self.srv, service.Service)
+        assert isinstance(self.srv, Service)
 
     def post(self):
+        '''The HTTP POST response'''
         json_data = request.get_json(force=True)
 
         display_option = json_data['display']
 
-        if display_option not in constants.ACCEPTABLE_LCD_DISPLAYS:
-             return marshal(models.GeneralResponse(status="NOT_AN_OPTION"), fields.general_response_fields), 400
+        if display_option not in ACCEPTABLE_LCD_DISPLAYS:
+            return marshal(
+                GeneralResponse(status="NOT_AN_OPTION"), general_response_fields
+            ), 400
 
         self.srv.ChangeLCDScreen(display_option)
-        return marshal(models.GeneralResponse(status="OK"), fields.general_response_fields)
+        return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class Handler():
-    def __init__(self, cfg: config.Config, srv: service.Service):
+    '''Used to create the air quality server'''
+    def __init__(self, cfg: Config, srv: Service):
         self.app = Flask(__name__)
         self.api = Api(self.app)
 
@@ -70,4 +85,5 @@ class Handler():
         self.cfg = cfg
 
     def Run(self):
-        self.app.run(debug=True, port=self.cfg.GetKey("port"))
+        '''Will actually run the air quality server'''
+        self.app.run(debug=True, port=self.cfg.get_key("port"), host="0.0.0.0")

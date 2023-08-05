@@ -1,24 +1,31 @@
-import config.config as config
-import service.service as service
-import handler.handler as handler
-import sensor.sensor, sensor.env_sensor, sensor.mock_sensor
+'''main.py is the main entrypoint to the Air Quality application.'''
 from threading import Thread
 
+from config.config import Config
+from service.service import Service
+from handler.handler import Handler
+from helper.helper import local_ip
+from sensor.env_sensor import EnvSensor
+from sensor.mock_sensor import MockSensor
+
 def main():
-    cfg = config.Config("config.json")
+    '''Is the main start of the application.'''
+    print(local_ip())
 
-    if cfg.GetKey("mock_hardware"):
-        snr = sensor.mock_sensor.MockSensor()
+    cfg = Config("config.json")
+
+    if cfg.get_key("mock_hardware"):
+        snr = MockSensor()
     else:
-        snr = sensor.env_sensor.EnvSensor()
+        snr = EnvSensor()
 
-    srv = service.Service(cfg, snr)
+    srv = Service(cfg, snr)
 
-    backgroundSensorReads = Thread(daemon=True, target=srv.RunReadSensors)
+    background_sensor_read_thread = Thread(daemon=True, target=srv.run_read_sensors)
 
-    backgroundSensorReads.start()
+    background_sensor_read_thread.start()
 
-    hndlr = handler.Handler(cfg, srv)
+    hndlr = Handler(cfg, srv)
     hndlr.Run()
 
 if __name__ == "__main__":
