@@ -1,5 +1,5 @@
 {
-	"mock_hardware": true,
+	"mock_hardware": false,
 	"port": "8050",
 	"sensor_read_seconds": 2
 }
