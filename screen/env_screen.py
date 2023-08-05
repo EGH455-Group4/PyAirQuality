@@ -1,6 +1,7 @@
 '''Will hold information belonging to the enviro LCD screen.'''
 import ST7735
 from PIL import Image, ImageDraw, ImageFont
+# pylint: disable=E0611
 from fonts.ttf import RobotoMedium as UserFont
 
 from screen.screen import Screen
