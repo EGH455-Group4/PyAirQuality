@@ -15,3 +15,5 @@ docker-compose build
 docker-compose up -d
 
 docker-compose down
+
+pip3 install -r requirements.txt
