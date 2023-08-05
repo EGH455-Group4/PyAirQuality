@@ -1,16 +1,21 @@
-import models.models as models
-import sensor.sensor as sensor
+'''Will hold information belonging to the mock sensor.'''
 import random
 
-class MockSensor(sensor.Sensor):
-    def ReadSensors(self) -> models.Sensors:
-        return models.Sensors(
-            light=models.SensorReading(random.random()*100, ""),
-            hazardous_gases=models.SensorReading(random.random()*100, ""),
-            humidity=models.SensorReading(random.random()*100, ""),
-            pressure=models.SensorReading(random.random()*100, ""),
-            temperature=models.SensorReading(random.random()*100, ""),
+from models.models import Sensors, SensorReading
+from sensor.sensor import Sensor
+
+class MockSensor(Sensor):
+    '''Implements the Sensor class, but mocks results.'''
+    def read_sensor(self) -> Sensors:
+        '''Will give random readings.'''
+        return Sensors(
+            light=SensorReading(random.random()*100, ""),
+            hazardous_gases=SensorReading(random.random()*100, ""),
+            humidity=SensorReading(random.random()*100, ""),
+            pressure=SensorReading(random.random()*100, ""),
+            temperature=SensorReading(random.random()*100, ""),
         )
 
-    def SetLCDScreen(self, option: str):
+    def set_lcd_screen(self, option: str):
+        '''Will log out the set option.'''
         print("MOCK" + option)

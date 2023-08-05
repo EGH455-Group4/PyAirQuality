@@ -1,11 +1,14 @@
-import models.models as models
+'''This will hold information about an abstract class about reading the sensor.'''
 from abc import ABC, abstractmethod
 
+from models.models import Sensors
+
 class Sensor(ABC):
+    '''Sensor is an abstract class that other classes will implement.'''
     @abstractmethod
-    def ReadSensors(self) -> models.Sensors:
-        pass
+    def read_sensor(self) -> Sensors:
+        '''Will read the sensors in implementations.'''
 
     @abstractmethod
-    def SetLCDScreen(self, option: str):
-        pass
+    def set_lcd_screen(self, option: str):
+        '''Will alter the LCD screen in implementations.'''

@@ -1,3 +1,4 @@
+'''This file holds the flask restful fields to help with the JSON responses.'''
 from flask_restful import fields
 
 sensor_reading_fields = {
