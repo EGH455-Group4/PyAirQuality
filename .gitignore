@@ -1,6 +1,8 @@
 # Our individual ignores
 .vscode
 
+paq/
+
 # https://github.com/github/gitignore/blob/main/Python.gitignore github recommended gitignore for python
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -4,22 +4,19 @@ import time
 
 from config.config import Config
 from sensor.sensor import Sensor
-from models.models import AirQuality,Sensors,SensorReading
+from screen.screen import Screen
+from models.models import AirQuality,Sensors
 
 class Service():
     '''Service will have service level functions.'''
-    def __init__(self, cfg: Config, snr: Sensor):
+    def __init__(self, cfg: Config, snr: Sensor, scr: Screen):
         self.cfg = cfg
         self.snr = snr
+        self.scr = scr
+
         self.running = True
         self.read_time = datetime.now()
-        self.sensors = Sensors(
-            light=SensorReading(0, ""),
-            hazardous_gases=SensorReading(0, ""),
-            humidity=SensorReading(0, ""),
-            pressure=SensorReading(0, ""),
-            temperature=SensorReading(0, ""),
-        )
+        self.sensors = Sensors()
 
     def start(self):
         '''Will reset vars and will enable the service to start collecting information.'''
@@ -45,7 +42,7 @@ class Service():
 
     def change_lcd_screen(self, option: str):
         '''Will attempt to alter the LCD screen on the sensor.'''
-        self.snr.set_lcd_screen(option)
+        self.scr.set_lcd_screen(option)
 
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''
@@ -64,10 +61,4 @@ class Service():
     def reset_vars(self):
         '''Will reset the current sensor information.'''
         self.read_time = datetime.now()
-        self.sensors = Sensors(
-            light=SensorReading(0, ""),
-            hazardous_gases=SensorReading(0, ""),
-            humidity=SensorReading(0, ""),
-            pressure=SensorReading(0, ""),
-            temperature=SensorReading(0, ""),
-        )
+        self.sensors = Sensors()
