@@ -8,11 +8,11 @@ class TestMockSensor(unittest.TestCase):
 
     def setUp(self):
         '''Add an instance of mock sensor to the class'''
-        self.mockSen = MockSensor()
+        self.mock_sen = MockSensor()
 
     def test_read_sensor(self):
         '''Ensure it can read the sensor'''
-        reading = self.mockSen.read_sensor()
+        reading = self.mock_sen.read_sensor()
 
         self.assertTrue(reading.light.reading > 0)
         self.assertTrue(reading.hazardous_gases.reading > 0)
@@ -22,7 +22,7 @@ class TestMockSensor(unittest.TestCase):
 
     def test_set_lcd_screen(self):
         '''Ensure it can set the LCD screen'''
-        res = self.mockSen.set_lcd_screen("temp")
+        res = self.mock_sen.set_lcd_screen("temp")
         self.assertTrue(res)
 
 if __name__ == '__main__':

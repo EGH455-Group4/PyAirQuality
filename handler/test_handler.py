@@ -1,7 +1,7 @@
 '''Unit test for the handler'''
 import unittest
 
-from handler.handler import Handler
+# from handler.handler import Handler
 
 class TestHandler(unittest.TestCase):
     '''Holds all the unit tests for the handler.'''

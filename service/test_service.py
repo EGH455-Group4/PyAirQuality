@@ -1,7 +1,7 @@
 '''Unit test for the service'''
 import unittest
 
-from service.service import Service
+# from service.service import Service
 
 class TestService(unittest.TestCase):
     '''Holds all the unit tests for the service.'''
