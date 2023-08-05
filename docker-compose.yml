@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    networks:
-#      - site
+    networks:
+      - site
     volumes:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
@@ -15,7 +15,7 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-#networks:
-#  site:
-#    external: true
-#    name: npm
+networks:
+  site:
+    external: true
+    name: npm

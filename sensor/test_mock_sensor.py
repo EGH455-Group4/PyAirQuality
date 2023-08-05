@@ -14,16 +14,13 @@ class TestMockSensor(unittest.TestCase):
         '''Ensure it can read the sensor'''
         reading = self.mock_sen.read_sensor()
 
-        self.assertTrue(reading.light.reading > 0)
-        self.assertTrue(reading.hazardous_gases.reading > 0)
-        self.assertTrue(reading.humidity.reading > 0)
-        self.assertTrue(reading.pressure.reading > 0)
-        self.assertTrue(reading.temperature.reading > 0)
-
-    def test_set_lcd_screen(self):
-        '''Ensure it can set the LCD screen'''
-        res = self.mock_sen.set_lcd_screen("temp")
-        self.assertTrue(res)
+        self.assertTrue(reading.light.value > 0)
+        self.assertTrue(reading.hazardous_gases.oxidised.value > 0)
+        self.assertTrue(reading.hazardous_gases.reduced.value > 0)
+        self.assertTrue(reading.hazardous_gases.nh3.value > 0)
+        self.assertTrue(reading.humidity.value > 0)
+        self.assertTrue(reading.pressure.value > 0)
+        self.assertTrue(reading.temperature.value > 0)
 
 if __name__ == '__main__':
     unittest.main()

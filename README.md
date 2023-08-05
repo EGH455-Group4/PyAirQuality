@@ -1,10 +1,24 @@
 # PyAirQuality
 
+### Python commands
+
+python3 main.py
+
+### Virtual env commands
+
 python3 -m venv paq
 
 source paq/bin/activate
 
 deactivate
+
+### Python install commands
+
+pip3 install -r requirements.txt
+
+pip3 freeze > requirements.txt
+
+### Docker commands
 
 docker build -t air .
 
@@ -15,5 +29,3 @@ docker-compose build
 docker-compose up -d
 
 docker-compose down
-
-pip3 install -r requirements.txt

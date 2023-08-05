@@ -8,7 +8,3 @@ class Sensor(ABC):
     @abstractmethod
     def read_sensor(self) -> Sensors:
         '''Will read the sensors in implementations.'''
-
-    @abstractmethod
-    def set_lcd_screen(self, option: str) -> bool:
-        '''Will alter the LCD screen in implementations.'''

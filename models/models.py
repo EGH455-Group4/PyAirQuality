@@ -3,15 +3,23 @@ import datetime
 
 class SensorReading:
     '''Sensor reading is the generic sensor reading object.'''
-    def __init__(self, reading: float, error: str):
-        self.reading = reading
-        self.error = error
+    def __init__(self, value: float, unit: str):
+        self.value = value
+        self.unit = unit
+
+class GasReading:
+    '''GasReading is a specific sensor reading of the hazardous_gases'''
+    def __init__(self, oxidised: SensorReading, reduced: SensorReading, nh3: SensorReading):
+        self.oxidised = oxidised
+        self.reduced = reduced
+        self.nh3 = nh3
 
 class Sensors:
     '''Sensor is all the required sensor readings.'''
     # pylint: disable=R0913
-    def __init__(self, light: SensorReading, hazardous_gases: SensorReading,
-                    humidity: SensorReading, pressure: SensorReading, temperature: SensorReading):
+    def __init__(self, light: SensorReading = None, hazardous_gases: GasReading = None,
+                    humidity: SensorReading = None, pressure: SensorReading = None,
+                    temperature: SensorReading = None):
         self.light = light
         self.hazardous_gases = hazardous_gases
         self.humidity = humidity

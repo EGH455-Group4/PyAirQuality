@@ -2,13 +2,19 @@
 from flask_restful import fields
 
 sensor_reading_fields = {
-    'reading': fields.String,
-    'error': fields.String,
+    'value': fields.String,
+    'unit': fields.String,
+}
+
+gas_reading_fields = {
+    'oxidised': fields.Nested(sensor_reading_fields),
+    'reduced': fields.Nested(sensor_reading_fields),
+    'nh3': fields.Nested(sensor_reading_fields),
 }
 
 sensor_fields = {
     'light': fields.Nested(sensor_reading_fields),
-    'hazardous_gases': fields.Nested(sensor_reading_fields),
+    'hazardous_gases': fields.Nested(gas_reading_fields),
     'humidity': fields.Nested(sensor_reading_fields),
     'pressure': fields.Nested(sensor_reading_fields),
     'temperature': fields.Nested(sensor_reading_fields),
