@@ -53,7 +53,7 @@ class Service():
             if self.running:
                 self.read_sensors()
 
-            time.sleep(self.cfg.get_key["sensor_read_seconds"])
+            time.sleep(self.cfg.get_key("sensor_read_seconds"))
 
     def read_sensors(self):
         '''Will collect sensor information and update read time.'''
