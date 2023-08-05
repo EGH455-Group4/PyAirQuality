@@ -21,7 +21,9 @@ pms5003==0.0.5
 pycparser==2.21
 pyserial==3.5
 pytz==2023.3
+RPi.GPIO==0.7.1
 six==1.16.0
+smbus==1.1.post2
 sounddevice==0.4.6
 spidev==3.6
 ST7735==0.0.4.post1
