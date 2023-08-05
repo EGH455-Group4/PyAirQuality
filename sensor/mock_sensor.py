@@ -17,6 +17,7 @@ class MockSensor(Sensor):
         )
 
 def generate_random_gas_reading() -> GasReading:
+    '''Will give a random GasReading value.'''
     return GasReading(
         random_sensor_reading_between(0, 5, "kOhms"),
         random_sensor_reading_between(400, 600, "kOhms"),
@@ -24,6 +25,7 @@ def generate_random_gas_reading() -> GasReading:
     )
 
 def random_sensor_reading_between(lowest, highest, unit) -> SensorReading:
+    '''Will give random SensorReading value.'''
     whole_value = random.randint(lowest, highest)
     decimal_value = random.random()
 

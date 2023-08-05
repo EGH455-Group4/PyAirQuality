@@ -15,7 +15,9 @@ class TestMockSensor(unittest.TestCase):
         reading = self.mock_sen.read_sensor()
 
         self.assertTrue(reading.light.value > 0)
-        self.assertTrue(reading.hazardous_gases.value > 0)
+        self.assertTrue(reading.hazardous_gases.oxidised.value > 0)
+        self.assertTrue(reading.hazardous_gases.reduced.value > 0)
+        self.assertTrue(reading.hazardous_gases.nh3.value > 0)
         self.assertTrue(reading.humidity.value > 0)
         self.assertTrue(reading.pressure.value > 0)
         self.assertTrue(reading.temperature.value > 0)
