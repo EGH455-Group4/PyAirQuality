@@ -11,5 +11,5 @@ class Config:
             file.close()
 
     def get_key(self, key: str):
-        '''Get_Key is used to retrieve specific configuration'''
+        '''get_key is used to retrieve specific configuration'''
         return self.config[key]

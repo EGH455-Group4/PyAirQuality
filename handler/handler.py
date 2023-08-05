@@ -16,7 +16,7 @@ class AirQuality(Resource):
 
     def get(self):
         '''The HTTP GET response'''
-        return marshal(self.srv.GetAirQuality(), air_quality_fields)
+        return marshal(self.srv.get_air_quality(), air_quality_fields)
 
 class SingleRead(Resource):
     '''Used to read the current air quality reading'''
@@ -26,7 +26,7 @@ class SingleRead(Resource):
 
     def get(self):
         '''The HTTP GET response'''
-        return marshal(self.srv.SingleRead(), air_quality_fields)
+        return marshal(self.srv.single_read(), air_quality_fields)
 
 class Start(Resource):
     '''Used to start reading the air quality'''
@@ -36,7 +36,7 @@ class Start(Resource):
 
     def post(self):
         '''The HTTP POST response'''
-        self.srv.Start()
+        self.srv.start()
         return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class Stop(Resource):
@@ -47,7 +47,7 @@ class Stop(Resource):
 
     def post(self):
         '''The HTTP POST response'''
-        self.srv.Stop()
+        self.srv.stop()
         return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class LcdScreen(Resource):
@@ -67,7 +67,7 @@ class LcdScreen(Resource):
                 GeneralResponse(status="NOT_AN_OPTION"), general_response_fields
             ), 400
 
-        self.srv.ChangeLCDScreen(display_option)
+        self.srv.change_lcd_screen(display_option)
         return marshal(GeneralResponse(status="OK"), general_response_fields)
 
 class Handler():

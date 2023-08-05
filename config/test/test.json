@@ -1,0 +1,5 @@
+{
+	"mock_hardware": false,
+	"port": "40",
+	"sensor_read_seconds": 78
+}
