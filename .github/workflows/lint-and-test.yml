@@ -18,6 +18,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Lint with pylint
-      run: ./lint.sh
+      run: |
+        pip install pylint
+        ./lint.sh
     - name: Run tests
       run: ./test.sh
