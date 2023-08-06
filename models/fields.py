@@ -2,7 +2,7 @@
 from flask_restful import fields
 
 sensor_reading_fields = {
-    'value': fields.String,
+    'value': fields.Float,
     'unit': fields.String,
 }
 
