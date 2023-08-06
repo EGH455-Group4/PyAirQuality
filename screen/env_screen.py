@@ -1,6 +1,4 @@
 '''Will hold information belonging to the enviro LCD screen.'''
-import ST7735
-from PIL import Image, ImageDraw, ImageFont
 # pylint: disable=E0611
 from fonts.ttf import RobotoMedium as UserFont
 
@@ -9,6 +7,9 @@ from screen.screen import Screen
 class EnvScreen(Screen):
     '''Implements the Screen class, and connects to the actual hardware.'''
     def __init__(self):
+        import ST7735
+        from PIL import ImageFont
+
         self.disp = ST7735.ST7735(
             port=0,
             cs=1,
@@ -24,6 +25,8 @@ class EnvScreen(Screen):
 
     def set_lcd_screen(self, message: str) -> bool:
         '''Will log out the set option.'''
+        from PIL import Image, ImageDraw
+
         print("set lcd screen to " + message)
 
         img = Image.new('RGB', (self.disp.width, self.disp.height), color=(0, 0, 0))

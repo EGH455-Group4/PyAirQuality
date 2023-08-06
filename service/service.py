@@ -70,7 +70,9 @@ class Service():
     def reset_vars(self):
         '''Will reset the current sensor information.'''
         self.read_time = datetime.now()
-        self.sensors = Sensors()
+        self.sensors = Sensors(
+            temperature=SensorReading(20.0, "C")
+        )
 
     def update_lcd_screen(self):
         '''Will attempt to alter the LCD screen on the sensor.'''

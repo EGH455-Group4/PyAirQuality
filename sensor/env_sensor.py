@@ -1,8 +1,4 @@
 '''Will hold information belonging to the enviro sensor.'''
-from enviroplus import gas
-from ltr559 import LTR559
-from bme280 import BME280
-
 from models.models import Sensors, SensorReading, GasReading
 from sensor.sensor import Sensor
 
@@ -10,6 +6,9 @@ class EnvSensor(Sensor):
     '''Implements the Sensor class, and connects to the actual hardware.'''
 
     def __init__(self, factor: float):
+        from ltr559 import LTR559
+        from bme280 import BME280
+
         self.bme280 = BME280()
         self.ltr559 = LTR559()
         self.temperature = self.bme280.get_temperature()
@@ -62,6 +61,8 @@ class EnvSensor(Sensor):
 
 def read_gas():
     '''Will attempt to read the gas on the sensor.'''
+    from enviroplus import gas
+
     gas_reading = gas.read_all()
 
     oxidised_reading = gas_reading.oxidising / 1000
