@@ -16,7 +16,6 @@ class Service():
         self.snr = snr
         self.scr = scr
 
-        self.running = False
         self.read_time = datetime.now()
         self.sensors = Sensors(
             temperature=SensorReading(20.0, "C")
@@ -25,26 +24,8 @@ class Service():
         self.screen_setting = SHOW_IP_ADDRESS
         self.ip_addr = ip_addr
 
-    def start(self):
-        '''Will reset vars and will enable the service to start collecting information.'''
-        self.reset_vars()
-
-        self.running = True
-
-    def stop(self):
-        '''Will reset vars and will disable the service from collecting information.'''
-        self.running = False
-
-        self.reset_vars()
-
     def get_air_quality(self) -> AirQuality:
         '''Will give the current air quality readings.'''
-        return AirQuality(self.sensors, self.read_time)
-
-    def single_read(self) -> AirQuality:
-        '''Will run the read sensor function and give the current air quality readings.'''
-        self.read_sensors()
-
         return AirQuality(self.sensors, self.read_time)
 
     def change_lcd_screen(self, option: str):
@@ -54,8 +35,7 @@ class Service():
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''
         while True:
-            if self.running:
-                self.read_sensors()
+            self.read_sensors()
 
             self.update_lcd_screen()
 
@@ -65,13 +45,12 @@ class Service():
         '''Will collect sensor information and update read time.'''
         self.read_time = datetime.now()
 
-        self.sensors = self.snr.read_sensor()
-
-    def reset_vars(self):
-        '''Will reset the current sensor information.'''
-        self.read_time = datetime.now()
         self.sensors = Sensors(
-            temperature=SensorReading(20.0, "C")
+            light=self.snr.read_light(),
+            hazardous_gases=self.snr.read_gas(),
+            humidity=self.snr.read_humidity(),
+            pressure=self.snr.read_pressure(),
+            temperature=self.snr.read_temperature(),
         )
 
     def update_lcd_screen(self):

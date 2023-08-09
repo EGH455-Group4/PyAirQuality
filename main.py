@@ -2,6 +2,7 @@
 from threading import Thread
 
 from config.config import Config
+from config.log import setup_logging
 from service.service import Service
 from handler.handler import Handler
 from helper.helper import local_ip
@@ -12,7 +13,7 @@ from screen.env_screen import EnvScreen
 
 def main():
     '''Is the main start of the application.'''
-    local_pi_ip = local_ip()
+    setup_logging()
 
     cfg = Config("config.json")
 
@@ -23,7 +24,7 @@ def main():
         snr = EnvSensor(cfg.get_key("temperature_factor"))
         scre = EnvScreen()
 
-    srv = Service(cfg, snr, scre, local_pi_ip)
+    srv = Service(cfg, snr, scre, local_ip())
 
     background_sensor_read_thread = Thread(daemon=True, target=srv.run_read_sensors)
 
