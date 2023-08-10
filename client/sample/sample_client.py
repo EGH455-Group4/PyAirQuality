@@ -14,9 +14,9 @@ class SampleClient(Client):
         '''Will log the attempted sample request and send it.'''
         logging.info("Sending a request to sample tube")
 
-        sampleURL = "http://127.0.0.1:" + self.cfg.get_key("sample_port")
+        sample_url = "http://127.0.0.1:" + self.cfg.get_key("sample_port")
 
-        res = requests.post(sampleURL+"/sample")
+        res = requests.post(sample_url+"/sample", timeout=5)
 
         logging.info(res.content)
 
