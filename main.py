@@ -31,8 +31,8 @@ def main():
     else:
         snr = EnvSensor(cfg.get_key("temperature_factor"))
         scre = EnvScreen()
-        sample_client = SampleClient()
-        target_client = TargetDetectionClient()
+        sample_client = SampleClient(cfg)
+        target_client = TargetDetectionClient(cfg)
 
     srv = Service(
         cfg,
