@@ -1,4 +1,5 @@
-'''This will hold information about an abstract class about sending requests to the target detection.'''
+'''This will hold information about an abstract class about sending requests
+to the target detection.'''
 from abc import ABC, abstractmethod
 
 class Client(ABC):

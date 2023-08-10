@@ -1,4 +1,5 @@
-'''This will hold information about an abstract class about sending requests to the sampling tube system.'''
+'''This will hold information about an abstract class about sending requests
+to the sampling tube system.'''
 from abc import ABC, abstractmethod
 
 class Client(ABC):
