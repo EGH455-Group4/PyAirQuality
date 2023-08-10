@@ -2,5 +2,7 @@
 	"mock_hardware": true,
 	"port": "8050",
 	"sensor_read_seconds": 2,
-	"temperature_factor": 1.8
+	"temperature_factor": 1.8,
+	"sample_port": "9090",
+	"target_port": "9091"
 }

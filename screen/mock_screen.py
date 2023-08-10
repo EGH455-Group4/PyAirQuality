@@ -1,4 +1,6 @@
 '''Will hold information belonging to the mock LCD screen.'''
+import logging
+
 from screen.screen import Screen
 
 class MockScreen(Screen):
@@ -6,5 +8,5 @@ class MockScreen(Screen):
 
     def set_lcd_screen(self, message: str) -> bool:
         '''Will log out the set message.'''
-        print("MOCK" + message)
+        logging.info("MOCK SCREEN WAS SET TO - %s", message)
         return True

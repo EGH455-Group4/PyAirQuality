@@ -18,38 +18,6 @@ class AirQuality(Resource):
         '''The HTTP GET response'''
         return marshal(self.srv.get_air_quality(), air_quality_fields)
 
-class SingleRead(Resource):
-    '''Used to read the current air quality reading'''
-    def __init__(self, **kwargs):
-        self.srv = kwargs['srv']
-        assert isinstance(self.srv, Service)
-
-    def get(self):
-        '''The HTTP GET response'''
-        return marshal(self.srv.single_read(), air_quality_fields)
-
-class Start(Resource):
-    '''Used to start reading the air quality'''
-    def __init__(self, **kwargs):
-        self.srv = kwargs['srv']
-        assert isinstance(self.srv, Service)
-
-    def post(self):
-        '''The HTTP POST response'''
-        self.srv.start()
-        return marshal(GeneralResponse(status="OK"), general_response_fields)
-
-class Stop(Resource):
-    '''Used to stop reading the air quality'''
-    def __init__(self, **kwargs):
-        self.srv = kwargs['srv']
-        assert isinstance(self.srv, Service)
-
-    def post(self):
-        '''The HTTP POST response'''
-        self.srv.stop()
-        return marshal(GeneralResponse(status="OK"), general_response_fields)
-
 class LcdScreen(Resource):
     '''Used to alter the LCD screen on the sensor'''
     def __init__(self, **kwargs):
@@ -77,9 +45,6 @@ class Handler():
         self.api = Api(self.app)
 
         self.api.add_resource(AirQuality, '/air-quality', resource_class_kwargs={'srv': srv})
-        self.api.add_resource(SingleRead, '/single-read', resource_class_kwargs={'srv': srv})
-        self.api.add_resource(Start, '/start', resource_class_kwargs={'srv': srv})
-        self.api.add_resource(Stop, '/stop', resource_class_kwargs={'srv': srv})
         self.api.add_resource(LcdScreen, '/lcd-screen', resource_class_kwargs={'srv': srv})
 
         self.cfg = cfg

@@ -1,6 +1,8 @@
 '''Will hold information belonging to the enviro LCD screen.'''
+import logging
 # pylint: disable=E0611
 from fonts.ttf import RobotoMedium as UserFont
+
 
 from screen.screen import Screen
 
@@ -27,7 +29,7 @@ class EnvScreen(Screen):
         '''Will log out the set option.'''
         from PIL import Image, ImageDraw
 
-        print("set lcd screen to " + message)
+        logging.info("setting lcd screen to %s", message)
 
         img = Image.new('RGB', (self.disp.width, self.disp.height), color=(0, 0, 0))
 

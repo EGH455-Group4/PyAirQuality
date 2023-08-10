@@ -6,17 +6,29 @@ from config.config import Config
 from sensor.sensor import Sensor
 from screen.screen import Screen
 from models.models import AirQuality,Sensors,SensorReading
-from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE
+from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_TARGET_DETECTION
+
+from client.sample.client import Client as SClient
+from client.target.client import Client as TClient
+
+SAMPLE_THRESHOLD = 0.3
 
 class Service():
     '''Service will have service level functions.'''
-    # pylint: disable=R0902
-    def __init__(self, cfg: Config, snr: Sensor, scr: Screen, ip_addr: str):
+    # pylint: disable=R0902,R0913
+    def __init__(
+            self,cfg: Config, snr: Sensor, scr: Screen, ip_addr: str,
+            sample_client: SClient, target_client: TClient,
+        ):
         self.cfg = cfg
         self.snr = snr
         self.scr = scr
+        self.sample_client = sample_client
+        self.target_client = target_client
 
-        self.running = False
+        self.landed = False
+        self.has_sampled = False
+
         self.read_time = datetime.now()
         self.sensors = Sensors(
             temperature=SensorReading(20.0, "C")
@@ -25,26 +37,8 @@ class Service():
         self.screen_setting = SHOW_IP_ADDRESS
         self.ip_addr = ip_addr
 
-    def start(self):
-        '''Will reset vars and will enable the service to start collecting information.'''
-        self.reset_vars()
-
-        self.running = True
-
-    def stop(self):
-        '''Will reset vars and will disable the service from collecting information.'''
-        self.running = False
-
-        self.reset_vars()
-
     def get_air_quality(self) -> AirQuality:
         '''Will give the current air quality readings.'''
-        return AirQuality(self.sensors, self.read_time)
-
-    def single_read(self) -> AirQuality:
-        '''Will run the read sensor function and give the current air quality readings.'''
-        self.read_sensors()
-
         return AirQuality(self.sensors, self.read_time)
 
     def change_lcd_screen(self, option: str):
@@ -54,8 +48,9 @@ class Service():
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''
         while True:
-            if self.running:
-                self.read_sensors()
+            self.read_sensors()
+
+            self.check_if_need_to_sample()
 
             self.update_lcd_screen()
 
@@ -65,14 +60,24 @@ class Service():
         '''Will collect sensor information and update read time.'''
         self.read_time = datetime.now()
 
-        self.sensors = self.snr.read_sensor()
-
-    def reset_vars(self):
-        '''Will reset the current sensor information.'''
-        self.read_time = datetime.now()
         self.sensors = Sensors(
-            temperature=SensorReading(20.0, "C")
+            light=self.snr.read_light(),
+            hazardous_gases=self.snr.read_gas(),
+            humidity=self.snr.read_humidity(),
+            pressure=self.snr.read_pressure(),
+            temperature=self.snr.read_temperature(),
         )
+
+    def check_if_need_to_sample(self):
+        '''Will attempt to send a request to the sample subsystem if it needs to sample.'''
+        if self.has_sampled:
+            return
+        if not self.landed:
+            return
+
+        if self.sensors.pressure.value < SAMPLE_THRESHOLD:
+            self.sample_client.sample()
+            self.has_sampled = True
 
     def update_lcd_screen(self):
         '''Will attempt to alter the LCD screen on the sensor.'''
@@ -82,3 +87,6 @@ class Service():
             self.scr.set_lcd_screen(
                 str(self.sensors.temperature.value) + self.sensors.temperature.unit
             )
+        elif self.screen_setting == SHOW_TARGET_DETECTION:
+            self.target_client.target_detection()
+            self.scr.set_lcd_screen(SHOW_TARGET_DETECTION)
