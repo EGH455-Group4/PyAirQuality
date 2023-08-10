@@ -22,8 +22,8 @@ class EnvScreen(Screen):
         )
         self.disp.begin()
 
-        self.WIDTH = self.disp.width
-        self.HEIGHT = self.disp.height
+        self.width = self.disp.width
+        self.height = self.disp.height
 
         self.font_size = 20
         self.font = ImageFont.truetype(UserFont, self.font_size)
@@ -35,9 +35,9 @@ class EnvScreen(Screen):
         logging.info("setting lcd screen to %s", message)
 
         if message == SHOW_TARGET_DETECTION:
-            im = Image.open("./lcd_picture.jpg")
-            im = im.resize((self.WIDTH, self.HEIGHT))
-            self.disp.display(im)
+            image = Image.open("./lcd_picture.jpg")
+            image = image.resize((self.width, self.height))
+            self.disp.display(image)
         else:
             img = Image.new('RGB', (self.disp.width, self.disp.height), color=(0, 0, 0))
 
