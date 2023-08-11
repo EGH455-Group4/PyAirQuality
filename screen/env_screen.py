@@ -12,7 +12,7 @@ class EnvScreen(Screen):
         import ST7735
         from PIL import ImageFont
 
-        self.disp = ST7735.ST7735(
+        self.display = ST7735.ST7735(
             port=0,
             cs=1,
             dc=9,
@@ -20,7 +20,7 @@ class EnvScreen(Screen):
             rotation=270,
             spi_speed_hz=10000000
         )
-        self.disp.begin()
+        self.display.begin()
 
         self.font_size = 20
         self.font = ImageFont.truetype(UserFont, self.font_size)
@@ -33,17 +33,17 @@ class EnvScreen(Screen):
 
         if message == SHOW_IMAGE_PROCESSING:
             image = Image.open("./lcd_picture.jpg")
-            image = image.resize((self.disp.width, self.disp.height))
-            self.disp.display(image)
+            image = image.resize((self.display.width, self.display.height))
+            self.display.display(image)
         else:
-            img = Image.new('RGB', (self.disp.width, self.disp.height), color=(0, 0, 0))
+            img = Image.new('RGB', (self.display.width, self.display.height), color=(0, 0, 0))
 
             draw = ImageDraw.Draw(img)
 
-            draw.rectangle((0, 0, self.disp.width, self.disp.height), (255, 255, 255))
+            draw.rectangle((0, 0, self.display.width, self.display.height), (255, 255, 255))
 
             draw.text((0, 0), message, font=self.font, fill=(0, 0, 0))
 
-            self.disp.display(img)
+            self.display.display(img)
 
         return True

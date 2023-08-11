@@ -1,10 +1,10 @@
-'''Unit test for the helper funcs'''
+'''Unit test for the helper functions'''
 import unittest
 
 from helper.helper import local_ip
 
 class TestHelpers(unittest.TestCase):
-    '''Holds all the unit tests for the helper funcs'''
+    '''Holds all the unit tests for the helper functions'''
     def test_local_ip(self):
         '''Ensure it can retrieve a string version of the IP'''
         res = local_ip()

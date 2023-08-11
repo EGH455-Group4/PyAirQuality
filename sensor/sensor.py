@@ -11,7 +11,7 @@ class Sensor(ABC):
 
     @abstractmethod
     def read_humidity(self) -> SensorReading:
-        '''Will attempt to read the humiditiy.'''
+        '''Will attempt to read the humidity.'''
 
     @abstractmethod
     def read_pressure(self) -> SensorReading:

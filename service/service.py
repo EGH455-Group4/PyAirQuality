@@ -13,12 +13,12 @@ class Service():
     '''Service will have service level functions.'''
     # pylint: disable=R0902,R0913
     def __init__(
-            self,cfg: Config, snr: Sensor, scr: Screen, ip_addr: str,
+            self, config: Config, sensor: Sensor, screen: Screen, ip_address: str,
             image_processing_client: Client
         ):
-        self.cfg = cfg
-        self.snr = snr
-        self.scr = scr
+        self.config = config
+        self.sensor = sensor
+        self.screen = screen
         self.image_processing_client = image_processing_client
 
         self.read_time = datetime.now()
@@ -27,7 +27,7 @@ class Service():
         )
 
         self.screen_setting = SHOW_IP_ADDRESS
-        self.ip_addr = ip_addr
+        self.ip_address = ip_address
 
     def get_air_quality(self) -> AirQuality:
         '''Will give the current air quality readings.'''
@@ -44,28 +44,28 @@ class Service():
 
             self.update_lcd_screen()
 
-            time.sleep(self.cfg.get_key("sensor_read_seconds"))
+            time.sleep(self.config.get_key("sensor_read_seconds"))
 
     def read_sensors(self):
         '''Will collect sensor information and update read time.'''
         self.read_time = datetime.now()
 
         self.sensors = Sensors(
-            light=self.snr.read_light(),
-            hazardous_gases=self.snr.read_gas(),
-            humidity=self.snr.read_humidity(),
-            pressure=self.snr.read_pressure(),
-            temperature=self.snr.read_temperature(),
+            light=self.sensor.read_light(),
+            hazardous_gases=self.sensor.read_gas(),
+            humidity=self.sensor.read_humidity(),
+            pressure=self.sensor.read_pressure(),
+            temperature=self.sensor.read_temperature(),
         )
 
     def update_lcd_screen(self):
         '''Will attempt to alter the LCD screen on the sensor.'''
         if self.screen_setting == SHOW_IP_ADDRESS:
-            self.scr.set_lcd_screen(self.ip_addr)
+            self.screen.set_lcd_screen(self.ip_address)
         elif self.screen_setting == SHOW_TEMPERATURE:
-            self.scr.set_lcd_screen(
+            self.screen.set_lcd_screen(
                 str(self.sensors.temperature.value) + self.sensors.temperature.unit
             )
         elif self.screen_setting == SHOW_IMAGE_PROCESSING:
             self.image_processing_client.current_image()
-            self.scr.set_lcd_screen(SHOW_IMAGE_PROCESSING)
+            self.screen.set_lcd_screen(SHOW_IMAGE_PROCESSING)

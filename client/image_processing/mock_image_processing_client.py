@@ -3,7 +3,7 @@ import logging
 
 from client.image_processing.client import Client
 
-class MockIPClient(Client):
+class MockImageProcessingClient(Client):
     '''Implements the Client class, but mocks results.'''
 
     def current_image(self):

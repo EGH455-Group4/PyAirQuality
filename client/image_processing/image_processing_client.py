@@ -4,7 +4,7 @@ import requests
 
 from client.image_processing.client import Client
 
-class IPClient(Client):
+class ImageProcessingClient(Client):
     '''Implements the Client class and sends requests.'''
     def __init__(self, image_processing_port: str):
         self.image_processing_port = image_processing_port

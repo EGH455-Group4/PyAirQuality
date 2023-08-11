@@ -12,6 +12,7 @@ class EnvSensor(Sensor):
 
         self.bme280 = BME280()
         self.ltr559 = LTR559()
+
         self.temperature = self.bme280.get_temperature()
         self.cpu_temps = [get_cpu_temperature()] * 5
         self.factor = factor
@@ -22,7 +23,7 @@ class EnvSensor(Sensor):
         return SensorReading(round(light_reading, 2), "Lux")
 
     def read_humidity(self) -> SensorReading:
-        '''Will attempt to read the humiditiy on the bme280 sensor.'''
+        '''Will attempt to read the humidity on the bme280 sensor.'''
         humidity_reading = self.bme280.get_humidity()
         return SensorReading(round(humidity_reading, 2), "%")
 
