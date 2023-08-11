@@ -11,7 +11,7 @@ class ImageProcessingClient(Client):
 
     def current_image(self):
         '''Will attempt fetch the current ip image.'''
-        logging.info("Sending a request to ip subsystem")
+        logging.info("Sending a request to image processing subsystem")
 
         ip_url = "http://127.0.0.1:" + self.image_processing_port
 

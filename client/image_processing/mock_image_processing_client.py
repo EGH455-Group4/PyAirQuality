@@ -8,4 +8,4 @@ class MockImageProcessingClient(Client):
 
     def current_image(self):
         '''Will just log the attempted fetch for image processing image.'''
-        logging.info("Sent a request to ip subsystem")
+        logging.info("Sent a request to image processing subsystem")
