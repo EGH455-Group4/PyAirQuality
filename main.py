@@ -28,7 +28,7 @@ def main():
     else:
         snr = EnvSensor(cfg.get_key("temperature_factor"))
         scre = EnvScreen()
-        image_processing_client = IPClient(cfg)
+        image_processing_client = IPClient(cfg.get_key("image_processing_port"))
 
     srv = Service(
         cfg,

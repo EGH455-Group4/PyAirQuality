@@ -6,18 +6,15 @@ from config.config import Config
 from sensor.sensor import Sensor
 from screen.screen import Screen
 from models.models import AirQuality,Sensors,SensorReading
-from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_TARGET_DETECTION
-
-from client.image_processing.client import Client as IPClient
-
-SAMPLE_THRESHOLD = 0.3
+from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
+from client.image_processing.client import Client
 
 class Service():
     '''Service will have service level functions.'''
     # pylint: disable=R0902,R0913
     def __init__(
             self,cfg: Config, snr: Sensor, scr: Screen, ip_addr: str,
-            image_processing_client: IPClient
+            image_processing_client: Client
         ):
         self.cfg = cfg
         self.snr = snr
@@ -69,6 +66,6 @@ class Service():
             self.scr.set_lcd_screen(
                 str(self.sensors.temperature.value) + self.sensors.temperature.unit
             )
-        elif self.screen_setting == SHOW_TARGET_DETECTION:
-            self.target_client.target_detection()
-            self.scr.set_lcd_screen(SHOW_TARGET_DETECTION)
+        elif self.screen_setting == SHOW_IMAGE_PROCESSING:
+            self.image_processing_client.current_image()
+            self.scr.set_lcd_screen(SHOW_IMAGE_PROCESSING)

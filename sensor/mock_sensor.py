@@ -1,6 +1,5 @@
 '''Will hold information belonging to the mock sensor.'''
-import random
-
+from helper.helper import random_sensor_reading_between, generate_random_gas_reading
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
 
@@ -25,20 +24,3 @@ class MockSensor(Sensor):
     def read_gas(self) -> GasReading:
         '''Will give a random gas reading.'''
         return generate_random_gas_reading()
-
-def generate_random_gas_reading() -> GasReading:
-    '''Will give a random GasReading value.'''
-    return GasReading(
-        random_sensor_reading_between(0, 5, "kOhms"),
-        random_sensor_reading_between(400, 600, "kOhms"),
-        random_sensor_reading_between(40, 60, "kOhms"),
-    )
-
-def random_sensor_reading_between(lowest, highest, unit) -> SensorReading:
-    '''Will give random SensorReading value.'''
-    whole_value = random.randint(lowest, highest)
-    decimal_value = random.random()
-
-    generatored_value = round(float(whole_value + decimal_value), 2)
-
-    return SensorReading(generatored_value, unit)

@@ -1,4 +1,5 @@
-'''Will hold information belonging to the enviro sensor.'''
+'''Will hold information belonging to the Enviro sensor.'''
+from helper.helper import get_cpu_temperature
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
 
@@ -58,10 +59,3 @@ class EnvSensor(Sensor):
             reduced=SensorReading(round(reduced_reading, 2), "kOhms"),
             nh3=SensorReading(round(nh3_reading, 2), "kOhms"),
         )
-
-def get_cpu_temperature():
-    '''get_cpu_temperature will attempt to read the current cpu temperature in C'''
-    with open("/sys/class/thermal/thermal_zone0/temp", "r", encoding="utf8") as temperature_file:
-        temp = temperature_file.read()
-        temp = int(temp) / 1000.0
-    return temp

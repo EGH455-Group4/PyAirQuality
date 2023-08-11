@@ -5,5 +5,5 @@ class Screen(ABC):
     '''Screen is an abstract class that other classes will implement.'''
 
     @abstractmethod
-    def set_lcd_screen(self, message: str) -> bool:
+    def set_lcd_screen(self, message: str):
         '''Will alter the LCD screen in implementations.'''

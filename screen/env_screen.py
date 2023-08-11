@@ -1,10 +1,10 @@
-'''Will hold information belonging to the enviro LCD screen.'''
+'''Will hold information belonging to the Enviro LCD screen.'''
 import logging
 # pylint: disable=E0611
 from fonts.ttf import RobotoMedium as UserFont
 
 from screen.screen import Screen
-from models.constants import SHOW_TARGET_DETECTION
+from models.constants import SHOW_IMAGE_PROCESSING
 
 class EnvScreen(Screen):
     '''Implements the Screen class, and connects to the actual hardware.'''
@@ -22,21 +22,18 @@ class EnvScreen(Screen):
         )
         self.disp.begin()
 
-        self.width = self.disp.width
-        self.height = self.disp.height
-
         self.font_size = 20
         self.font = ImageFont.truetype(UserFont, self.font_size)
 
-    def set_lcd_screen(self, message: str) -> bool:
-        '''Will log out the set option.'''
+    def set_lcd_screen(self, message: str):
+        '''Will alter the LCD screen on the hardware.'''
         from PIL import Image, ImageDraw
 
         logging.info("setting lcd screen to %s", message)
 
-        if message == SHOW_TARGET_DETECTION:
+        if message == SHOW_IMAGE_PROCESSING:
             image = Image.open("./lcd_picture.jpg")
-            image = image.resize((self.width, self.height))
+            image = image.resize((self.disp.width, self.disp.height))
             self.disp.display(image)
         else:
             img = Image.new('RGB', (self.disp.width, self.disp.height), color=(0, 0, 0))

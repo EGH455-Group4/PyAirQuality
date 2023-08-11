@@ -3,23 +3,22 @@ import logging
 import requests
 
 from client.image_processing.client import Client
-from config.config import Config
 
 class IPClient(Client):
     '''Implements the Client class and sends requests.'''
-    def __init__(self, cfg: Config):
-        self.cfg = cfg
+    def __init__(self, image_processing_port: str):
+        self.image_processing_port = image_processing_port
 
     def current_image(self):
         '''Will attempt fetch the current ip image.'''
         logging.info("Sending a request to ip subsystem")
 
-        ip_url = "http://127.0.0.1:" + self.cfg.get_key("ip_port")
+        ip_url = "http://127.0.0.1:" + self.image_processing_port
 
         res = requests.post(ip_url+"/current-image", timeout=5)
 
         if res.status_code == 200:
-            with open("./lcd_picture.jpg", 'wb') as target_disp:
-                target_disp.write(res.content)
+            with open("./lcd_picture.jpg", 'wb') as image_processing_disp:
+                image_processing_disp.write(res.content)
 
         res.close()

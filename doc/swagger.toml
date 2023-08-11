@@ -14,8 +14,8 @@ paths:
     get:
       tags:
         - Air readings
-      summary: Fetch current air quality readings
-      description: Fetch the current air quality readings. If readings hasn't started it will all be empty
+      summary: Fetch current air quality readings.
+      description: Fetch current air quality readings.
       operationId: getAirQuality
       responses:
         '200':
@@ -26,13 +26,19 @@ paths:
                 $ref: '#/components/schemas/AirQuality'
         '500':
           description: Fetch failed
-  /start:
+  /lcd-screen:
     post:
       tags:
         - Air readings
-      summary: Start air quality readings
-      description: When requested the controller will start reading air quality samples
-      operationId: startAirQuality
+      summary: Change the LCD screen display on the enviro sensor.
+      description: Change the LCD screen display on the enviro sensor.
+      operationId: postLCDScreen
+      requestBody:
+        description: What to change the LCD screen to.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LCDScreenRequest'
       responses:
         '200':
           description: Successful operation
@@ -40,40 +46,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GeneralResponse'
-        '500':
-          description: Start failed
-  /stop:
-    post:
-      tags:
-        - Air readings
-      summary: Stop air quality readings
-      description: When requested the controller will stop reading air quality samples
-      operationId: stopAirQuality
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GeneralResponse'
+        '400':
+          description: Bad request body
         '500':
           description: Stop failed
-  /single-reading:
-    get:
-      tags:
-        - Air readings
-      summary: Fetch air quality readings once
-      description: Fetch the air readings, even if the readings haven't started or stopped.
-      operationId: getSingleReading
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AirQuality'
-        '500':
-          description: Fetch failed
 components:
   schemas:
     AirQuality:
@@ -85,7 +61,7 @@ components:
             light:
               $ref: '#/components/schemas/SensorReading'
             hazardous_gases:
-              $ref: '#/components/schemas/SensorReading'
+              $ref: '#/components/schemas/HazardousGases'
             humidity:
               $ref: '#/components/schemas/SensorReading'
             pressure:
@@ -94,12 +70,33 @@ components:
               $ref: '#/components/schemas/SensorReading'
         current_time:
           type: string
-    GeneralResponse:
+    HazardousGases:
       type: object
+      properties:
+        oxidised:
+          $ref: '#/components/schemas/SensorReading'
+        reduced:
+          $ref: '#/components/schemas/SensorReading'
+        nh3:
+          $ref: '#/components/schemas/SensorReading'
     SensorReading:
       type: object
       properties:
-        reading:
+        value:
           type: number
-        error:
+        unit:
+          type: string
+    LCDScreenRequest:
+      type: object
+      properties:
+        display:
+          type: string
+          enum:
+            - IP_address
+            - temperature
+            - image_processing
+    GeneralResponse:
+      type: object
+      properties:
+        status:
           type: string
