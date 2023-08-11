@@ -1,5 +1,6 @@
 {
 	"mock_hardware": true,
+	"mock_software": true,
 	"port": "8050",
 	"sensor_read_seconds": 2,
 	"temperature_factor": 1.8,

@@ -24,10 +24,13 @@ def main():
     if config.get_key("mock_hardware"):
         sensor = MockSensor()
         screen = MockScreen()
-        image_processing_client = MockImageProcessingClient()
     else:
         sensor = EnvSensor(config.get_key("temperature_factor"))
         screen = EnvScreen()
+
+    if config.get_key("mock_software"):
+        image_processing_client = MockImageProcessingClient()
+    else:
         image_processing_client = ImageProcessingClient(config.get_key("image_processing_port"))
 
     service = Service(
