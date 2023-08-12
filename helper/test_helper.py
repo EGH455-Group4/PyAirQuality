@@ -11,6 +11,7 @@ class TestHelpers(unittest.TestCase):
         res = local_ip()
         self.assertTrue(isinstance(res, str))
         self.assertTrue(res != "")
+        # pylint: disable=W1401
         self.assertRegex(res, "^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$")
 
     def test_get_cpu_temperature(self):

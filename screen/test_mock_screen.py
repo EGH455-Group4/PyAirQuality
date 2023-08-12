@@ -2,7 +2,6 @@
 import unittest
 
 from screen.mock_screen import MockScreen
-from screen.env_screen import EnvScreen
 
 class TestMockScreen(unittest.TestCase):
     '''Holds all the unit tests for the mock screen.'''

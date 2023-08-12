@@ -1,6 +1,6 @@
 '''Unit test for the service'''
 import unittest
-from unittest.mock import Mock, create_autospec, patch
+from unittest.mock import create_autospec
 
 from service.service import Service
 from config.config import Config
@@ -8,26 +8,26 @@ from screen.screen import Screen
 from sensor.sensor import Sensor
 from client.image_processing.client import Client
 
-from models.models import AirQuality, Sensors, SensorReading, GasReading
+from models.models import AirQuality, SensorReading, GasReading
 
 class TestService(unittest.TestCase):
     '''Holds all the unit tests for the service.'''
 
     def setUp(self):
         '''Sets up the mocks for the test case'''
-        self.mockCfg = create_autospec(Config)
+        self.mock_cfg = create_autospec(Config)
 
-        self.mockSensor = create_autospec(Sensor)
-        self.mockScreen = create_autospec(Screen)
+        self.mock_sensor = create_autospec(Sensor)
+        self.mock_screen = create_autospec(Screen)
 
-        self.mockClient = create_autospec(Client)
+        self.mock_client = create_autospec(Client)
 
         self.service = Service(
-            self.mockCfg,
-            self.mockSensor,
-            self.mockScreen,
+            self.mock_cfg,
+            self.mock_sensor,
+            self.mock_screen,
             "192.0.0.1",
-            self.mockClient,
+            self.mock_client,
         )
 
     def test_get_air_quality(self):
@@ -53,31 +53,31 @@ class TestService(unittest.TestCase):
         '''Ensure it can update the lcd screen'''
         self.service.update_lcd_screen()
 
-        self.mockScreen.set_lcd_screen.assert_called_with("192.0.0.1")
+        self.mock_screen.set_lcd_screen.assert_called_with("192.0.0.1")
 
     def test_read_sensors(self):
         '''Ensure it can read the sensors'''
-        self.mockSensor.read_light.return_value = SensorReading(
+        self.mock_sensor.read_light.return_value = SensorReading(
             value=23.2,
             unit="lux"
         )
 
-        self.mockSensor.read_humidity.return_value = SensorReading(
+        self.mock_sensor.read_humidity.return_value = SensorReading(
             value=32.1,
             unit="%"
         )
 
-        self.mockSensor.read_pressure.return_value = SensorReading(
+        self.mock_sensor.read_pressure.return_value = SensorReading(
             value=2,
             unit="hPa"
         )
 
-        self.mockSensor.read_temperature.return_value = SensorReading(
+        self.mock_sensor.read_temperature.return_value = SensorReading(
             value=11.2,
             unit="C"
         )
 
-        self.mockSensor.read_gas.return_value = GasReading(
+        self.mock_sensor.read_gas.return_value = GasReading(
             oxidised=SensorReading(
                 value=55.2,
                 unit="kOhms"
