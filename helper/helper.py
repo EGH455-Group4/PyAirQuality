@@ -4,7 +4,7 @@ import random
 
 from models.models import SensorReading, GasReading
 
-def local_ip():
+def local_ip() -> str:
     '''Will attempt to get the computer's IP on the local internet.'''
     socket_connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     socket_connection.connect(("8.8.8.8", 80))
@@ -12,7 +12,7 @@ def local_ip():
     socket_connection.detach()
     return ip_address
 
-def get_cpu_temperature():
+def get_cpu_temperature() -> float:
     '''get_cpu_temperature will attempt to read the current cpu temperature in C'''
     with open("/sys/class/thermal/thermal_zone0/temp", "r", encoding="utf8") as temperature_file:
         temperature = temperature_file.read()

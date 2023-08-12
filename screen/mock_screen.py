@@ -9,4 +9,3 @@ class MockScreen(Screen):
     def set_lcd_screen(self, message: str):
         '''Will log out the set message.'''
         logging.info("MOCK SCREEN WAS SET TO - %s", message)
-        return True

@@ -9,7 +9,8 @@ class SensorReading:
 
 class GasReading:
     '''GasReading is a specific sensor reading of the hazardous_gases'''
-    def __init__(self, oxidised: SensorReading, reduced: SensorReading, nh3: SensorReading):
+    def __init__(self, oxidised: SensorReading = None, reduced: SensorReading = None,
+                nh3: SensorReading = None):
         self.oxidised = oxidised
         self.reduced = reduced
         self.nh3 = nh3

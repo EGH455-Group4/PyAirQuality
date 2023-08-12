@@ -10,6 +10,6 @@ class Config:
             self.config = json.load(file)
             file.close()
 
-    def get_key(self, key: str):
+    def get_key(self, key: str) -> any:
         '''get_key is used to retrieve specific configuration'''
         return self.config[key]
