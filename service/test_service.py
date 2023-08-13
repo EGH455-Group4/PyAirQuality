@@ -78,7 +78,7 @@ class TestService(unittest.TestCase):
         )
 
         self.mock_sensor.read_gas.return_value = GasReading(
-            oxidised=SensorReading(
+            oxidising_gases=SensorReading(
                 value=55.2,
                 unit="kOhms"
             )
@@ -123,11 +123,11 @@ class TestService(unittest.TestCase):
         )
 
         self.assertEqual(
-            self.service.sensors.hazardous_gases.oxidised.value,
+            self.service.sensors.hazardous_gases.oxidising_gases.value,
             55.2
         )
         self.assertEqual(
-            self.service.sensors.hazardous_gases.oxidised.unit,
+            self.service.sensors.hazardous_gases.oxidising_gases.unit,
             "kOhms"
         )
 

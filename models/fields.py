@@ -7,9 +7,9 @@ sensor_reading_fields = {
 }
 
 gas_reading_fields = {
-    'oxidised': fields.Nested(sensor_reading_fields),
-    'reduced': fields.Nested(sensor_reading_fields),
-    'nh3': fields.Nested(sensor_reading_fields),
+    'oxidising_gases': fields.Nested(sensor_reading_fields),
+    'reducing_gases': fields.Nested(sensor_reading_fields),
+    'ammonia': fields.Nested(sensor_reading_fields),
 }
 
 sensor_fields = {

@@ -73,11 +73,11 @@ components:
     HazardousGases:
       type: object
       properties:
-        oxidised:
+        oxidising_gases:
           $ref: '#/components/schemas/SensorReading'
-        reduced:
+        reducing_gases:
           $ref: '#/components/schemas/SensorReading'
-        nh3:
+        ammonia:
           $ref: '#/components/schemas/SensorReading'
     SensorReading:
       type: object

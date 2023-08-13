@@ -42,17 +42,17 @@ class TestMockSensor(unittest.TestCase):
         '''Ensure it can retrieve a gas reading'''
         res = self.mock_sensor.read_gas()
 
-        self.assertGreater(res.oxidised.value, -1)
-        self.assertLess(res.oxidised.value, 6)
-        self.assertEqual(res.oxidised.unit, "kOhms")
+        self.assertGreater(res.oxidising_gases.value, -1)
+        self.assertLess(res.oxidising_gases.value, 6)
+        self.assertEqual(res.oxidising_gases.unit, "kOhms")
 
-        self.assertGreater(res.reduced.value, 399)
-        self.assertLess(res.reduced.value, 601)
-        self.assertEqual(res.reduced.unit, "kOhms")
+        self.assertGreater(res.reducing_gases.value, 399)
+        self.assertLess(res.reducing_gases.value, 601)
+        self.assertEqual(res.reducing_gases.unit, "kOhms")
 
-        self.assertGreater(res.nh3.value, 39)
-        self.assertLess(res.nh3.value, 61)
-        self.assertEqual(res.nh3.unit, "kOhms")
+        self.assertGreater(res.ammonia.value, 39)
+        self.assertLess(res.ammonia.value, 61)
+        self.assertEqual(res.ammonia.unit, "kOhms")
 
 if __name__ == '__main__':
     unittest.main()

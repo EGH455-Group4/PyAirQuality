@@ -24,9 +24,9 @@ class TestHelpers(unittest.TestCase):
     def test_generate_random_gas_reading(self):
         '''Ensure it can generate a random gas reading'''
         res = generate_random_gas_reading()
-        self.assertGreater(res.oxidised.value, 0)
-        self.assertLess(res.oxidised.value, 6)
-        self.assertEqual(res.oxidised.unit, "kOhms")
+        self.assertGreater(res.oxidising_gases.value, 0)
+        self.assertLess(res.oxidising_gases.value, 6)
+        self.assertEqual(res.oxidising_gases.unit, "kOhms")
 
     def test_random_sensor_reading_between(self):
         '''Ensure it can generate a random sensor reading'''
