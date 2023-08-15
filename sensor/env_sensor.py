@@ -1,4 +1,6 @@
 '''Will hold information belonging to the Enviro sensor.'''
+import logging
+
 from helper.helper import get_cpu_temperature
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
@@ -16,6 +18,8 @@ class EnvSensor(Sensor):
         self.temperature = self.bme280.get_temperature()
         self.cpu_temps = [get_cpu_temperature()] * 5
         self.factor = factor
+
+        logging.info("Enviro sensor setup")
 
     def read_light(self) -> SensorReading:
         '''Will attempt to read the light on the ltr559 sensor.'''

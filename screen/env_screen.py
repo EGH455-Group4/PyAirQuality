@@ -25,6 +25,8 @@ class EnvScreen(Screen):
         self.font_size = 20
         self.font = ImageFont.truetype(UserFont, self.font_size)
 
+        logging.info("Enviro screen setup")
+
     def set_lcd_screen(self, message: str):
         '''Will alter the LCD screen on the hardware.'''
         from PIL import Image, ImageDraw
@@ -46,4 +48,4 @@ class EnvScreen(Screen):
 
             self.display.display(img)
 
-        return True
+        return

@@ -9,6 +9,8 @@ class ImageProcessingClient(Client):
     def __init__(self, image_processing_port: str):
         self.image_processing_port = image_processing_port
 
+        logging.info("Image processing client setup.")
+
     def current_image(self):
         '''Will attempt fetch the current ip image.'''
         logging.info("Sending a request to image processing subsystem")
