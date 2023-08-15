@@ -8,7 +8,7 @@ class TestConfig(unittest.TestCase):
 
     def test_setup_logging_runs(self):
         '''Ensure it can retrieve a string config'''
-        setup_logging()
+        setup_logging(False)
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,7 +5,9 @@ from screen.screen import Screen
 
 class MockScreen(Screen):
     '''Implements the Screen class, and connects to mocked hardware.'''
+    def __init__(self):
+        logging.info("Mock screen setup")
 
     def set_lcd_screen(self, message: str):
         '''Will log out the set message.'''
-        logging.info("MOCK SCREEN WAS SET TO - %s", message)
+        logging.info("Mock screen was set to - %s", message)

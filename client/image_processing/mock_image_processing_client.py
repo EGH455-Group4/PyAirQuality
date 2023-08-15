@@ -5,6 +5,8 @@ from client.image_processing.client import Client
 
 class MockImageProcessingClient(Client):
     '''Implements the Client class, but mocks results.'''
+    def __init__(self):
+        logging.info("Mock image processing client setup.")
 
     def current_image(self):
         '''Will just log the attempted fetch for image processing image.'''

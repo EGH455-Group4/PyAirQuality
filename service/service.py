@@ -1,6 +1,7 @@
 '''Service.py holds the service level functionality of the Air Quality app.'''
-from datetime import datetime
+from datetime import datetime, timedelta
 import time
+import logging
 
 from config.config import Config
 from sensor.sensor import Sensor
@@ -29,6 +30,8 @@ class Service():
         self.screen_setting = SHOW_IP_ADDRESS
         self.ip_address = ip_address
 
+        logging.info("Service was setup")
+
     def get_air_quality(self) -> AirQuality:
         '''Will give the current air quality readings.'''
         return AirQuality(self.sensors, self.read_time)
@@ -37,14 +40,24 @@ class Service():
         '''Will update the LCD screen setting.'''
         self.screen_setting = option
 
+        logging.info("Screen was set to %s", option)
+
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''
         while True:
+            end_time = datetime.now() + timedelta(
+                seconds=self.config.get_key("sensor_read_seconds")
+            )
+
             self.read_sensors()
 
             self.update_lcd_screen()
 
-            time.sleep(self.config.get_key("sensor_read_seconds"))
+            current_time = datetime.now()
+
+            wait_time = max((end_time - current_time).total_seconds(), 0)
+
+            time.sleep(wait_time)
 
     def read_sensors(self):
         '''Will collect sensor information and update read time.'''
@@ -57,6 +70,8 @@ class Service():
             pressure=self.sensor.read_pressure(),
             temperature=self.sensor.read_temperature(),
         )
+
+        logging.info("Sensor was read and is: %s", self.sensors)
 
     def update_lcd_screen(self):
         '''Will attempt to alter the LCD screen on the sensor.'''

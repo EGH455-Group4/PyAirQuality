@@ -17,9 +17,9 @@ from client.image_processing.image_processing_client import ImageProcessingClien
 
 def main():
     '''Is the main start of the application.'''
-    setup_logging()
-
     config = Config("config.json")
+
+    setup_logging(config.get_key("log_to_file"))
 
     if config.get_key("mock_hardware"):
         sensor = MockSensor()

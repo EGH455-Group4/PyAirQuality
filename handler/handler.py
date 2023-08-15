@@ -1,4 +1,5 @@
 '''Handler will showcase the Air Quality endpoints'''
+import logging
 from flask import Flask, request
 from flask_restful import Resource, Api, marshal
 
@@ -52,6 +53,8 @@ class Handler():
         })
 
         self.config = config
+
+        logging.info("Handler was setup.")
 
     def Run(self):
         '''Will actually run the air quality server'''

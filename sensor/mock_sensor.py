@@ -1,10 +1,15 @@
 '''Will hold information belonging to the mock sensor.'''
+import logging
+
 from helper.helper import random_sensor_reading_between, generate_random_gas_reading
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
 
 class MockSensor(Sensor):
     '''Implements the Sensor class, but mocks results.'''
+    def __init__(self):
+        logging.info("Mock sensor setup")
+
     def read_light(self) -> SensorReading:
         '''Will give a random light reading.'''
         return random_sensor_reading_between(10, 20, "lux")
