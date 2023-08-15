@@ -8,7 +8,7 @@ class SensorReading:
         self.unit = unit
 
     def __str__(self) -> str:
-        return f"{0}{1}".format(self.value, self.unit)
+        return f"{self.value}{self.unit}"
 
 class GasReading:
     '''GasReading is a specific sensor reading of the hazardous_gases'''
@@ -19,9 +19,8 @@ class GasReading:
         self.ammonia = ammonia
 
     def __str__(self) -> str:
-        return f"oxidising_gases: {0}, reducing_gases: {1}, ammonia: {2}".format(
-            self.oxidising_gases, self.reducing_gases, self.ammonia,
-        )
+        # pylint: disable=C0301
+        return f"oxidising_gases: {self.oxidising_gases}, reducing_gases: {self.reducing_gases}, ammonia: {self.ammonia}"
 
 class Sensors:
     '''Sensor is all the required sensor readings.'''
@@ -37,9 +36,7 @@ class Sensors:
 
     def __str__(self) -> str:
         # pylint: disable=C0301
-        return f"light: {0}, gas_reading: {1}, humidity: {2}, pressure: {3}, temperature: {4}.".format(
-            self.light, self.hazardous_gases, self.humidity, self.pressure, self.temperature,
-        )
+        return f"light: {self.light}, gas_reading: {self.hazardous_gases}, humidity: {self.humidity}, pressure: {self.pressure}, temperature: {self.temperature}."
 
 class AirQuality:
     '''Air Quality is the entire reading of the sensors with the datetime of the reading.'''
