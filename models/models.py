@@ -8,7 +8,7 @@ class SensorReading:
         self.unit = unit
 
     def __str__(self) -> str:
-        return "{0}{1}".format(self.value, self.unit)
+        return f"{0}{1}".format(self.value, self.unit)
 
 class GasReading:
     '''GasReading is a specific sensor reading of the hazardous_gases'''
@@ -19,7 +19,7 @@ class GasReading:
         self.ammonia = ammonia
 
     def __str__(self) -> str:
-        return "oxidising_gases: {0}, reducing_gases: {1}, ammonia: {2}".format(
+        return f"oxidising_gases: {0}, reducing_gases: {1}, ammonia: {2}".format(
             self.oxidising_gases, self.reducing_gases, self.ammonia,
         )
 
@@ -36,7 +36,8 @@ class Sensors:
         self.temperature = temperature
 
     def __str__(self) -> str:
-        return "light: {0}, gas_reading: {1}, humidity: {2}, pressure: {3}, temperature: {4}.".format(
+        # pylint: disable=C0301
+        return f"light: {0}, gas_reading: {1}, humidity: {2}, pressure: {3}, temperature: {4}.".format(
             self.light, self.hazardous_gases, self.humidity, self.pressure, self.temperature,
         )
 

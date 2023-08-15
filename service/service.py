@@ -45,7 +45,9 @@ class Service():
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''
         while True:
-            end_time = datetime.now() + timedelta(seconds=self.config.get_key("sensor_read_seconds"))
+            end_time = datetime.now() + timedelta(
+                seconds=self.config.get_key("sensor_read_seconds")
+            )
 
             self.read_sensors()
 
@@ -53,10 +55,7 @@ class Service():
 
             current_time = datetime.now()
 
-            wait_time = (end_time - current_time).total_seconds()
-
-            if wait_time < 0:
-                wait_time = 0
+            wait_time = max((end_time - current_time).total_seconds(), 0)
 
             time.sleep(wait_time)
 

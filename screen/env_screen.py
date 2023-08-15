@@ -47,5 +47,3 @@ class EnvScreen(Screen):
             draw.text((0, 0), message, font=self.font, fill=(0, 0, 0))
 
             self.display.display(img)
-
-        return
