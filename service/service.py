@@ -43,6 +43,8 @@ class Service():
 
         self.ip_address_set = False
 
+        self.update_lcd_screen()
+
         logging.info("Screen was set to %s", option)
 
     def run_read_sensors(self):
