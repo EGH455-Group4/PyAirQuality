@@ -29,6 +29,7 @@ class Service():
 
         self.screen_setting = SHOW_IP_ADDRESS
         self.ip_address = ip_address
+        self.ip_address_set = False
 
         logging.info("Service was setup")
 
@@ -39,6 +40,10 @@ class Service():
     def change_lcd_screen(self, option: str):
         '''Will update the LCD screen setting.'''
         self.screen_setting = option
+
+        self.ip_address_set = False
+
+        self.update_lcd_screen()
 
         logging.info("Screen was set to %s", option)
 
@@ -75,8 +80,9 @@ class Service():
 
     def update_lcd_screen(self):
         '''Will attempt to alter the LCD screen on the sensor.'''
-        if self.screen_setting == SHOW_IP_ADDRESS:
+        if self.screen_setting == SHOW_IP_ADDRESS and not self.ip_address_set:
             self.screen.set_lcd_screen(self.ip_address)
+            self.ip_address_set = True
         elif self.screen_setting == SHOW_TEMPERATURE:
             self.screen.set_lcd_screen(
                 str(self.sensors.temperature.value) + self.sensors.temperature.unit
