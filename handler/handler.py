@@ -17,7 +17,8 @@ class AirQuality(Resource):
 
     def get(self):
         '''The HTTP GET response'''
-        return marshal(self.service.get_air_quality(), air_quality_fields)
+        return marshal(self.service.get_air_quality(), air_quality_fields), \
+            {'Access-Control-Allow-Origin': '*'}
 
 class LcdScreen(Resource):
     '''Used to alter the LCD screen on the sensor'''
@@ -37,7 +38,8 @@ class LcdScreen(Resource):
             ), 400
 
         self.service.change_lcd_screen(display_option)
-        return marshal(GeneralResponse(status="OK"), general_response_fields)
+        return marshal(GeneralResponse(status="OK"), general_response_fields), \
+            {'Access-Control-Allow-Origin': '*'}
 
 class Handler():
     '''Used to create the air quality server'''
