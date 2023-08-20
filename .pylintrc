@@ -3,4 +3,5 @@ init-hook="from pylint.config import find_pylintrc; import os, sys; sys.path.app
 
 [MESSAGES CONTROL]
 disable=too-few-public-methods,
-    import-outside-toplevel
+    import-outside-toplevel,
+    bare-except
