@@ -9,7 +9,7 @@ from sensor.sensor import Sensor
 from client.image_processing.client import Client as IPClient
 from client.web_server.client import Client as WSClient
 
-from models.models import AirQuality, SensorReading, GasReading
+from models.models import SensorReading, GasReading
 
 class TestService(unittest.TestCase):
     '''Holds all the unit tests for the service.'''

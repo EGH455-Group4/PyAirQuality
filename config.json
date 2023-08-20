@@ -5,5 +5,6 @@
 	"sensor_read_seconds": 2,
 	"temperature_factor": 1.8,
 	"image_processing_port": "9091",
-	"log_to_file": false
+	"log_to_file": false,
+	"web_server_address": "127.0.0.1:8090"
 }

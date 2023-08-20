@@ -21,7 +21,7 @@ class WebServerClient(Client):
         logging.info("Sending a request to web server subsystem")
 
         res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
-            marshal(self.service.get_air_quality(), air_quality_fields)
+            marshal(air_quality, air_quality_fields)
         })
 
         res.close()
