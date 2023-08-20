@@ -2,11 +2,10 @@
 import logging
 import requests
 
-from flask_restful import marshal
+import jsonpickle
 
 from client.web_server.client import Client
 
-from models.fields import air_quality_fields
 from models.models import AirQuality
 
 class WebServerClient(Client):
@@ -20,8 +19,11 @@ class WebServerClient(Client):
         '''Will attempt to send air quality data.'''
         logging.info("Sending a request to web server subsystem")
 
-        res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
-            marshal(air_quality, air_quality_fields)
-        })
+        try:
+            res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
+                "air_quality": jsonpickle.encode(air_quality, unpicklable=False)
+            }, headers={'Content-Type': 'application/json'})
 
-        res.close()
+            res.close()
+        except:
+            logging.error("failed to send data to web server")
