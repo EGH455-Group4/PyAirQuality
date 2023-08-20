@@ -24,6 +24,7 @@ def main():
         screen,
         local_ip(),
         None,
+        None,
     )
 
     service.update_lcd_screen()

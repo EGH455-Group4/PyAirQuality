@@ -15,6 +15,9 @@ from screen.env_screen import EnvScreen
 from client.image_processing.mock_image_processing_client import MockImageProcessingClient
 from client.image_processing.image_processing_client import ImageProcessingClient
 
+from client.web_server.mock_web_server_client import MockWebServerClient
+from client.web_server.web_server_client import WebServerClient
+
 def main():
     '''Is the main start of the application.'''
     config = Config("config.json")
@@ -30,8 +33,10 @@ def main():
 
     if config.get_key("mock_software"):
         image_processing_client = MockImageProcessingClient()
+        web_server_client = MockWebServerClient()
     else:
         image_processing_client = ImageProcessingClient(config.get_key("image_processing_port"))
+        web_server_client = WebServerClient(config.get_key("web_server_address"))
 
     service = Service(
         config,
@@ -39,6 +44,7 @@ def main():
         screen,
         local_ip(),
         image_processing_client,
+        web_server_client,
     )
 
     background_sensor_read_thread = Thread(daemon=True, target=service.run_read_sensors)

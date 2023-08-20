@@ -7,18 +7,7 @@ from config.config import Config
 from service.service import Service
 from models.models import GeneralResponse
 from models.constants import ACCEPTABLE_LCD_DISPLAYS
-from models.fields import air_quality_fields, general_response_fields
-
-class AirQuality(Resource):
-    '''Used to retrieve the current air quality reading'''
-    def __init__(self, **kwargs):
-        self.service = kwargs['service']
-        assert isinstance(self.service, Service)
-
-    def get(self):
-        '''The HTTP GET response'''
-        return marshal(self.service.get_air_quality(), air_quality_fields), \
-            {'Access-Control-Allow-Origin': '*'}
+from models.fields import general_response_fields
 
 class LcdScreen(Resource):
     '''Used to alter the LCD screen on the sensor'''
@@ -47,9 +36,6 @@ class Handler():
         self.app = Flask(__name__)
         self.api = Api(self.app)
 
-        self.api.add_resource(AirQuality, '/air-quality', resource_class_kwargs={
-            'service': service
-        })
         self.api.add_resource(LcdScreen, '/lcd-screen', resource_class_kwargs={
             'service': service
         })
