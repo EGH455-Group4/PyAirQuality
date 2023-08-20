@@ -8,19 +8,21 @@ from sensor.sensor import Sensor
 from screen.screen import Screen
 from models.models import AirQuality,Sensors,SensorReading
 from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
-from client.image_processing.client import Client
+from client.image_processing.client import Client as IPClient
+from client.web_server.client import Client as WSClient
 
 class Service():
     '''Service will have service level functions.'''
     # pylint: disable=R0902,R0913
     def __init__(
             self, config: Config, sensor: Sensor, screen: Screen, ip_address: str,
-            image_processing_client: Client
+            image_processing_client: IPClient, web_server_client: WSClient,
         ):
         self.config = config
         self.sensor = sensor
         self.screen = screen
         self.image_processing_client = image_processing_client
+        self.web_server_client = web_server_client
 
         self.read_time = datetime.now()
         self.sensors = Sensors(
@@ -33,9 +35,11 @@ class Service():
 
         logging.info("Service was setup")
 
-    def get_air_quality(self) -> AirQuality:
-        '''Will give the current air quality readings.'''
-        return AirQuality(self.sensors, self.read_time)
+    def send_air_quality(self) -> AirQuality:
+        '''Will send out the current air quality readings.'''
+        self.web_server_client.send_air_quality(
+            AirQuality(self.sensors, self.read_time)
+        )
 
     def change_lcd_screen(self, option: str):
         '''Will update the LCD screen setting.'''
@@ -55,6 +59,8 @@ class Service():
             )
 
             self.read_sensors()
+
+            self.send_air_quality()
 
             self.update_lcd_screen()
 

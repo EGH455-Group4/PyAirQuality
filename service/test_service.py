@@ -6,7 +6,8 @@ from service.service import Service
 from config.config import Config
 from screen.screen import Screen
 from sensor.sensor import Sensor
-from client.image_processing.client import Client
+from client.image_processing.client import Client as IPClient
+from client.web_server.client import Client as WSClient
 
 from models.models import AirQuality, SensorReading, GasReading
 
@@ -20,24 +21,16 @@ class TestService(unittest.TestCase):
         self.mock_sensor = create_autospec(Sensor)
         self.mock_screen = create_autospec(Screen)
 
-        self.mock_client = create_autospec(Client)
+        self.mock_ip_client = create_autospec(IPClient)
+        self.mock_ws_client = create_autospec(WSClient)
 
         self.service = Service(
             self.mock_cfg,
             self.mock_sensor,
             self.mock_screen,
             "192.0.0.1",
-            self.mock_client,
-        )
-
-    def test_get_air_quality(self):
-        '''Ensure it can get the air quality'''
-        res = self.service.get_air_quality()
-
-        self.assertIsInstance(res, AirQuality)
-        self.assertEqual(
-            res.sensors.temperature.value,
-            20.0
+            self.mock_ip_client,
+            self.mock_ws_client,
         )
 
     def test_change_lcd_screen(self):
