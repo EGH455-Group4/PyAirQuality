@@ -38,7 +38,7 @@ class Service():
     def send_air_quality(self) -> AirQuality:
         '''Will send out the current air quality readings.'''
         self.web_server_client.send_air_quality(
-            AirQuality(self.sensors, self.read_time)
+            AirQuality(self.sensors, self.read_time.isoformat(sep="T",timespec="auto"))
         )
 
     def change_lcd_screen(self, option: str):

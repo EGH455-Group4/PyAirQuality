@@ -1,6 +1,7 @@
 '''Will hold information belonging to the implementation of the web server client.'''
 import logging
 import requests
+import json
 
 import jsonpickle
 
@@ -18,12 +19,11 @@ class WebServerClient(Client):
     def send_air_quality(self, air_quality: AirQuality):
         '''Will attempt to send air quality data.'''
         logging.info("Sending a request to web server subsystem")
-
         try:
             res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
-                "air_quality": jsonpickle.encode(air_quality, unpicklable=False)
+                "air_quality": json.dumps(air_quality)
             }, headers={'Content-Type': 'application/json'})
 
             res.close()
-        except:
-            logging.error("failed to send data to web server")
+        except Exception as error:
+            logging.error("failed to send data to web server %s", error)
