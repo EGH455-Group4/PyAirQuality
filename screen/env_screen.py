@@ -42,7 +42,7 @@ class EnvScreen(Screen):
 
             draw = ImageDraw.Draw(img)
 
-            draw.rectangle((0, 0, self.display.width, self.display.height), (0, 170, 170))
+            draw.rectangle((0, 0, self.display.width, self.display.height), (0, 0, 0))
 
             draw.text((0, 0), message, font=self.font, fill=(255, 255, 255))
 
