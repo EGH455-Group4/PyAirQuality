@@ -25,5 +25,5 @@ class ImageProcessingClient(Client):
                     image_processing_disp.write(res.content)
 
             res.close()
-        except:
-            logging.error("failed to get data from image processing")
+        except Exception as error:
+            logging.error("failed to get data from image processing %s", error)

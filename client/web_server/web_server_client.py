@@ -1,9 +1,8 @@
 '''Will hold information belonging to the implementation of the web server client.'''
-import logging
-import requests
 import json
+import logging
 
-import jsonpickle
+import requests
 
 from client.web_server.client import Client
 
