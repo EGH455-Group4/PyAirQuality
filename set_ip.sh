@@ -10,6 +10,9 @@ cd $SCRIPT_DIR/
 
 source paq/bin/activate
 
-python3 ip_set.py
+until python3 ip_set.py
+do
+    sleep 5
+done
 
 deactivate
