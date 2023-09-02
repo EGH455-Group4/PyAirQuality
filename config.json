@@ -1,10 +1,10 @@
 {
+	"port": "8050",
+	"image_processing_port": "9091",
+	"web_server_address": "http://127.0.0.1:9092",
 	"mock_hardware": true,
 	"mock_software": true,
-	"port": "8050",
 	"sensor_read_seconds": 2,
-	"temperature_factor": 1.8,
-	"image_processing_port": "9091",
-	"log_to_file": false,
-	"web_server_address": "http://127.0.0.1:9092"
+	"temperature_factor": 1,
+	"log_to_file": false
 }
