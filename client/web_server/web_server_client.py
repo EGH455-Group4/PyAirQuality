@@ -20,7 +20,7 @@ class WebServerClient(Client):
         logging.info("Sending a request to web server subsystem")
         try:
             res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
-                "air_quality": json.dumps(air_quality)
+                "air_quality": air_quality
             }, headers={'Content-Type': 'application/json'})
 
             res.close()
