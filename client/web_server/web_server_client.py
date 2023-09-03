@@ -1,5 +1,4 @@
 '''Will hold information belonging to the implementation of the web server client.'''
-import json
 import logging
 
 import requests
