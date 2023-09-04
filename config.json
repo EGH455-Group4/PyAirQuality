@@ -1,7 +1,7 @@
 {
 	"port": "8050",
-	"image_processing_port": "9091",
-	"web_server_address": "http://127.0.0.1:9092",
+	"image_processing_port": "9060",
+	"web_server_address": "http://127.0.0.1:8080",
 	"mock_hardware": true,
 	"mock_software": true,
 	"sensor_read_seconds": 2,
