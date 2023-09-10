@@ -15,8 +15,7 @@ class EnvSensor(Sensor):
         self.bme280 = BME280()
         self.ltr559 = LTR559()
 
-        self.temperature = self.bme280.get_temperature()
-        self.cpu_temps = [get_cpu_temperature()] * 5
+        self.previous_temps = [self.bme280.get_temperature()] * 5
         self.factor = factor
 
         logging.info("Enviro sensor setup")
@@ -40,10 +39,9 @@ class EnvSensor(Sensor):
         '''Will attempt to read the temperature on the bme280 sensor.'''
         raw_temperature_reading = self.bme280.get_temperature()
 
-        cpu_temp = get_cpu_temperature()
-        self.cpu_temps = self.cpu_temps[1:] + [cpu_temp]
-        avg_cpu_temp = sum(self.cpu_temps) / float(len(self.cpu_temps))
-        data = raw_temperature_reading - ((avg_cpu_temp - raw_temperature_reading) / self.factor)
+        self.previous_temps = self.previous_temps[1:] + [raw_temperature_reading]
+        avg_temp = sum(self.previous_temps) / float(len(self.previous_temps))
+        data = avg_temp * self.factor
 
         self.temperature = round(data, 2)
 
