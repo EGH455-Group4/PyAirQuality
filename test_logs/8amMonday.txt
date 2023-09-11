@@ -1,0 +1,29 @@
+python3 main.py 
+2023-09-11 08:10:04.058 INFO     Enviro sensor setup
+2023-09-11 08:10:05.620 INFO     Enviro screen setup
+2023-09-11 08:10:05.621 INFO     Mock image processing client setup.
+2023-09-11 08:10:05.621 INFO     Mock web server client setup.
+2023-09-11 08:10:05.622 INFO     Service was setup
+2023-09-11 08:10:05.635 INFO     Handler was setup.
+ * Serving Flask app 'handler.handler'
+ * Debug mode: off
+2023-09-11 08:10:05.662 INFO     WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8050
+ * Running on http://192.168.0.246:8050
+2023-09-11 08:10:05.663 INFO     Press CTRL+C to quit
+2023-09-11 08:10:05.731 INFO     Sensor was read and is: light: 6209.69Lux, gas_reading: oxidising_gases: 266.51kOhms, reducing_gases: 7644.0kOhms, ammonia: 5077.33kOhms, humidity: 19.32%, pressure: 1027.3hPa, temperature: 12.62C.
+2023-09-11 08:10:05.731 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:05.735 INFO     setting lcd screen to 192.168.0.246
+2023-09-11 08:10:10.653 INFO     Sensor was read and is: light: 6217.27Lux, gas_reading: oxidising_gases: 7.05kOhms, reducing_gases: 547.92kOhms, ammonia: 400.3kOhms, humidity: 19.17%, pressure: 1027.3hPa, temperature: 13.56C.
+2023-09-11 08:10:10.654 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:15.658 INFO     Sensor was read and is: light: 6216.06Lux, gas_reading: oxidising_gases: 7.31kOhms, reducing_gases: 536.31kOhms, ammonia: 444.81kOhms, humidity: 18.92%, pressure: 1027.31hPa, temperature: 14.52C.
+2023-09-11 08:10:15.659 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:20.663 INFO     Sensor was read and is: light: 6233.54Lux, gas_reading: oxidising_gases: 7.51kOhms, reducing_gases: 514.37kOhms, ammonia: 444.81kOhms, humidity: 19.08%, pressure: 1027.31hPa, temperature: 15.47C.
+2023-09-11 08:10:20.664 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:25.668 INFO     Sensor was read and is: light: 6221.18Lux, gas_reading: oxidising_gases: 7.64kOhms, reducing_gases: 504.0kOhms, ammonia: 457.33kOhms, humidity: 18.81%, pressure: 1027.3hPa, temperature: 16.45C.
+2023-09-11 08:10:25.669 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:30.673 INFO     Sensor was read and is: light: 6241.73Lux, gas_reading: oxidising_gases: 7.77kOhms, reducing_gases: 498.95kOhms, ammonia: 444.81kOhms, humidity: 18.37%, pressure: 1027.26hPa, temperature: 16.53C.
+2023-09-11 08:10:30.674 INFO     Sent a request to the MOCKED web server subsystem
+2023-09-11 08:10:35.678 INFO     Sensor was read and is: light: 6247.3Lux, gas_reading: oxidising_gases: 7.83kOhms, reducing_gases: 504.0kOhms, ammonia: 461.65kOhms, humidity: 18.01%, pressure: 1027.24hPa, temperature: 16.62C.
+2023-09-11 08:10:35.679 INFO     Sent a request to the MOCKED web server subsystem
