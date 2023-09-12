@@ -1,7 +1,6 @@
 '''Will hold information belonging to the Enviro sensor.'''
 import logging
 
-from helper.helper import get_cpu_temperature
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
 
@@ -15,7 +14,6 @@ class EnvSensor(Sensor):
         self.bme280 = BME280()
         self.ltr559 = LTR559()
 
-        self.previous_temps = [self.bme280.get_temperature()] * 5
         self.factor = factor
 
         logging.info("Enviro sensor setup")
@@ -39,13 +37,9 @@ class EnvSensor(Sensor):
         '''Will attempt to read the temperature on the bme280 sensor.'''
         raw_temperature_reading = self.bme280.get_temperature()
 
-        self.previous_temps = self.previous_temps[1:] + [raw_temperature_reading]
-        avg_temp = sum(self.previous_temps) / float(len(self.previous_temps))
-        data = avg_temp * self.factor
+        temperature_reading = raw_temperature_reading * self.factor
 
-        self.temperature = round(data, 2)
-
-        return SensorReading(self.temperature, "C")
+        return SensorReading(round(temperature_reading, 2), "C")
 
     def read_gas(self) -> GasReading:
         '''Will attempt to read the gas on the sensor.'''
