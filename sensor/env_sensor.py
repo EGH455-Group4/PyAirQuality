@@ -4,6 +4,8 @@ import logging
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
 
+from helper.helper import get_cpu_temperature
+
 class EnvSensor(Sensor):
     '''Implements the Sensor class, and connects to the actual hardware.'''
 
@@ -13,6 +15,9 @@ class EnvSensor(Sensor):
 
         self.bme280 = BME280()
         self.ltr559 = LTR559()
+
+        self.temperature = self.bme280.get_temperature()
+        self.cpu_temps = [get_cpu_temperature()] * 5
 
         self.factor = factor
 
@@ -37,9 +42,14 @@ class EnvSensor(Sensor):
         '''Will attempt to read the temperature on the bme280 sensor.'''
         raw_temperature_reading = self.bme280.get_temperature()
 
-        temperature_reading = raw_temperature_reading * self.factor
+        cpu_temp = get_cpu_temperature()
+        self.cpu_temps = self.cpu_temps[1:] + [cpu_temp]
+        avg_cpu_temp = sum(self.cpu_temps) / float(len(self.cpu_temps))
+        data = raw_temperature_reading - ((avg_cpu_temp - raw_temperature_reading) / self.factor)
 
-        return SensorReading(round(temperature_reading, 2), "C")
+        self.temperature = round(data, 2)
+
+        return SensorReading(self.temperature, "C")
 
     def read_gas(self) -> GasReading:
         '''Will attempt to read the gas on the sensor.'''
