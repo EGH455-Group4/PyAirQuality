@@ -51,7 +51,7 @@ def gas_to_ppm_conversion(raw_values: GasReading):
 
     nh3_ppm = -0.158 * math.log10(
         raw_values.nh3.value/BASELINE_NH3
-    ) - 0.7157
+    ) + 0.7157
 
     return GasReading(
         oxidising_gases=SensorReading(
