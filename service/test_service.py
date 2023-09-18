@@ -31,6 +31,7 @@ class TestService(unittest.TestCase):
             "192.0.0.1",
             self.mock_ip_client,
             self.mock_ws_client,
+            True
         )
 
     def test_change_lcd_screen(self):

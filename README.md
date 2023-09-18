@@ -32,3 +32,5 @@ curl -X POST http://127.0.0.1:8050/lcd-screen -H 'Content-Type: application/json
 https://learn.sparkfun.com/tutorials/hazardous-gas-monitor/calculate-gas-sensor-ppm
 
 https://www.sgxsensortech.com/content/uploads/2015/02/1143_Datasheet-MiCS-6814-rev-8.pdf
+
+https://forums.pimoroni.com/t/enviro-ohms-to-ppm/12207/6

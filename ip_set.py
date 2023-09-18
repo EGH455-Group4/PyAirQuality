@@ -35,6 +35,7 @@ def main():
         local_ip_address,
         None,
         None,
+        True,
     )
 
     service.update_lcd_screen()

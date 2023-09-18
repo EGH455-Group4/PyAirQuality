@@ -40,6 +40,7 @@ def random_sensor_reading_between(lowest, highest, unit) -> SensorReading:
     return SensorReading(generated_value, unit)
 
 def gas_to_ppm_conversion(raw_values: GasReading):
+    '''Will convert kOhms to ppm values'''
     oxidising_ppm = math.pow(10, math.log10(
         raw_values.oxidising_gases.value/BASELINE_OXIDISING
     ) - 0.8129)
