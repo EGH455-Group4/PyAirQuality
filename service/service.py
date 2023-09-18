@@ -10,6 +10,7 @@ from models.models import AirQuality,Sensors,SensorReading
 from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
 from client.image_processing.client import Client as IPClient
 from client.web_server.client import Client as WSClient
+from helper.helper import gas_to_ppm_conversion
 
 class Service():
     '''Service will have service level functions.'''
@@ -17,12 +18,14 @@ class Service():
     def __init__(
             self, config: Config, sensor: Sensor, screen: Screen, ip_address: str,
             image_processing_client: IPClient, web_server_client: WSClient,
+            send_raw_gas_values: bool,
         ):
         self.config = config
         self.sensor = sensor
         self.screen = screen
         self.image_processing_client = image_processing_client
         self.web_server_client = web_server_client
+        self.send_raw_gas_values = send_raw_gas_values
 
         self.read_time = datetime.now()
         self.sensors = Sensors(
@@ -72,9 +75,14 @@ class Service():
         '''Will collect sensor information and update read time.'''
         self.read_time = datetime.now()
 
+        gas_values = self.sensor.read_gas()
+
+        if not self.send_raw_gas_values:
+            gas_values = gas_to_ppm_conversion(raw_values=gas_values)
+
         self.sensors = Sensors(
             light=self.sensor.read_light(),
-            hazardous_gases=self.sensor.read_gas(),
+            hazardous_gases=gas_values,
             humidity=self.sensor.read_humidity(),
             pressure=self.sensor.read_pressure(),
             temperature=self.sensor.read_temperature(),

@@ -6,5 +6,6 @@
 	"mock_software": true,
 	"sensor_read_seconds": 2,
 	"temperature_factor": 1,
-	"log_to_file": false
+	"log_to_file": false,
+	"send_raw_gas_values": false
 }

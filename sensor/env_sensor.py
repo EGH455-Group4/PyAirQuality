@@ -59,10 +59,10 @@ class EnvSensor(Sensor):
 
         oxidised_reading = gas_reading.oxidising / 1000
         reduced_reading = gas_reading.reducing / 1000
-        ammonia_reading = gas_reading.nh3 / 1000
+        nh3_reading = gas_reading.nh3 / 1000
 
         return GasReading(
             oxidising_gases=SensorReading(round(oxidised_reading, 2), "kOhms"),
             reducing_gases=SensorReading(round(reduced_reading, 2), "kOhms"),
-            ammonia=SensorReading(round(ammonia_reading, 2), "kOhms"),
+            nh3=SensorReading(round(nh3_reading, 2), "kOhms"),
         )

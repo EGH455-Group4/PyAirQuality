@@ -45,6 +45,7 @@ def main():
         local_ip(),
         image_processing_client,
         web_server_client,
+        config.get_key("send_raw_gas_values")
     )
 
     background_sensor_read_thread = Thread(daemon=True, target=service.run_read_sensors)

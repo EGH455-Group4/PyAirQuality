@@ -14,17 +14,17 @@ class SensorReading(dict):
 class GasReading(dict):
     '''GasReading is a specific sensor reading of the hazardous_gases'''
     def __init__(self, oxidising_gases: SensorReading = None, reducing_gases: SensorReading = None,
-                ammonia: SensorReading = None):
+                nh3: SensorReading = None):
         self.oxidising_gases = oxidising_gases
         self.reducing_gases = reducing_gases
-        self.ammonia = ammonia
+        self.nh3 = nh3
 
         dict.__init__(self, oxidising_gases=oxidising_gases, reducing_gases=reducing_gases, \
-                      ammonia=ammonia)
+                      nh3=nh3)
 
     def __str__(self) -> str:
         # pylint: disable=C0301
-        return f"oxidising_gases: {self.oxidising_gases}, reducing_gases: {self.reducing_gases}, ammonia: {self.ammonia}"
+        return f"oxidising_gases: {self.oxidising_gases}, reducing_gases: {self.reducing_gases}, nh3: {self.nh3}"
 
 class Sensors(dict):
     '''Sensor is all the required sensor readings.'''

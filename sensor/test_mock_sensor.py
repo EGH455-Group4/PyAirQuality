@@ -50,9 +50,9 @@ class TestMockSensor(unittest.TestCase):
         self.assertLess(res.reducing_gases.value, 601)
         self.assertEqual(res.reducing_gases.unit, "kOhms")
 
-        self.assertGreater(res.ammonia.value, 39)
-        self.assertLess(res.ammonia.value, 61)
-        self.assertEqual(res.ammonia.unit, "kOhms")
+        self.assertGreater(res.nh3.value, 39)
+        self.assertLess(res.nh3.value, 61)
+        self.assertEqual(res.nh3.unit, "kOhms")
 
 if __name__ == '__main__':
     unittest.main()
