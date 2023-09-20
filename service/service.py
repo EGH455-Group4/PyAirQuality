@@ -10,7 +10,7 @@ from models.models import AirQuality,Sensors,SensorReading
 from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
 from client.image_processing.client import Client as IPClient
 from client.web_server.client import Client as WSClient
-from helper.helper import gas_to_ppm_conversion
+from helper.helper import gas_to_ppm_conversion, create_individual_gases
 
 class Service():
     '''Service will have service level functions.'''
@@ -77,7 +77,10 @@ class Service():
 
         gas_values = self.sensor.read_gas()
 
+        gas_individual_values = None
+
         if not self.send_raw_gas_values:
+            gas_individual_values = create_individual_gases(raw_values=gas_values)
             gas_values = gas_to_ppm_conversion(raw_values=gas_values)
 
         self.sensors = Sensors(
@@ -86,6 +89,7 @@ class Service():
             humidity=self.sensor.read_humidity(),
             pressure=self.sensor.read_pressure(),
             temperature=self.sensor.read_temperature(),
+            individual_gases=gas_individual_values,
         )
 
         logging.info("Sensor was read and is: %s", self.sensors)

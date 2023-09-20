@@ -3,7 +3,7 @@ import socket
 import random
 import math
 
-from models.models import SensorReading, GasReading
+from models.models import SensorReading, GasReading, IndividualGasReading
 from models.constants import BASELINE_REDUCING, BASELINE_OXIDISING, BASELINE_NH3
 
 def local_ip() -> str:
@@ -41,17 +41,26 @@ def random_sensor_reading_between(lowest, highest, unit) -> SensorReading:
 
 def gas_to_ppm_conversion(raw_values: GasReading):
     '''Will convert kOhms to ppm values'''
-    oxidising_ppm = 6.933 * (
+    oxidising_ppm = math.pow(10, math.log10(
         raw_values.oxidising_gases.value/BASELINE_OXIDISING
-    ) - 0.1866
+    ) - 0.8129)
 
-    reducing_ppm = -0.656 * math.log10(
+    if oxidising_ppm < 0:
+        oxidising_ppm = 0.01
+
+    reducing_ppm = math.pow(10, -1.25 * math.log10(
         raw_values.reducing_gases.value/BASELINE_REDUCING
-    ) + 2.6955
+    ) + 0.64)
 
-    nh3_ppm = -0.158 * math.log10(
+    if reducing_ppm < 0:
+        reducing_ppm = 0.01
+
+    nh3_ppm = math.pow(10, -1.8 * math.log10(
         raw_values.nh3.value/BASELINE_NH3
-    ) + 0.7157
+    ) - 0.163)
+
+    if nh3_ppm < 0:
+        nh3_ppm = 0.01
 
     return GasReading(
         oxidising_gases=SensorReading(
@@ -62,6 +71,21 @@ def gas_to_ppm_conversion(raw_values: GasReading):
             "ppm",
         ), nh3=SensorReading(
             round(nh3_ppm, 2),
+            "ppm",
+        )
+    )
+
+def create_individual_gases(raw_values: GasReading) -> IndividualGasReading:
+    '''Will create individual gases object'''
+    oxidising_ratio = raw_values.oxidising_gases.value/BASELINE_OXIDISING
+    reducing_ratio = raw_values.reducing_gases.value/BASELINE_REDUCING
+    nh3_ratio = raw_values.nh3.value/BASELINE_NH3
+
+    nitrogen_dioxide = 6.933 * oxidising_ratio - 0.1866
+
+    return IndividualGasReading(
+        nitrogen_dioxide=SensorReading(
+            round(nitrogen_dioxide, 2),
             "ppm",
         )
     )
