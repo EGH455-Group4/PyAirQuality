@@ -18,7 +18,7 @@ class ImageProcessingClient(Client):
         ip_url = "http://127.0.0.1:" + self.image_processing_port
 
         try:
-            res = requests.post(ip_url+"/current-image", timeout=5)
+            res = requests.get(ip_url+"/image", timeout=5)
 
             if res.status_code == 200:
                 with open("./lcd_picture.jpg", 'wb') as image_processing_disp:
