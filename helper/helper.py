@@ -138,16 +138,19 @@ def linear_equation(m_value, x_value, c_value):
     '''Will calculate a log equation, giving a small value if negative'''
     value = m_value * x_value + c_value
 
-    if value < 0:
+    if value <= 0.01:
         value = 0.01
 
     return round(value, 2)
 
 def log_equation(m_value, x_value, c_value):
     '''Will calculate a log equation, giving a small value if negative'''
+    if x_value <= 0.01:
+        x_value = 0.01
+
     value = m_value * math.log(x_value) + c_value
 
-    if value < 0:
+    if value <= 0.01:
         value = 0.01
 
     return round(value, 2)
