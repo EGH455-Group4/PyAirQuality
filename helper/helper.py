@@ -4,7 +4,7 @@ import random
 import math
 
 from models.models import SensorReading, GasReading, IndividualGasReading
-from models.constants import BASELINE_REDUCING, BASELINE_OXIDISING, BASELINE_NH3
+from models.constants import BASELINE_REDUCING, BASELINE_OXIDISING, BASELINE_NH3, PPM
 
 def local_ip() -> str:
     '''Will attempt to get the computer's IP on the local internet.'''
@@ -65,13 +65,13 @@ def gas_to_ppm_conversion(raw_values: GasReading):
     return GasReading(
         oxidising_gases=SensorReading(
             round(oxidising_ppm, 2),
-            "ppm",
+            PPM,
         ), reducing_gases=SensorReading(
             round(reducing_ppm, 2),
-            "ppm",
+            PPM,
         ), nh3=SensorReading(
             round(nh3_ppm, 2),
-            "ppm",
+            PPM,
         )
     )
 
@@ -81,11 +81,81 @@ def create_individual_gases(raw_values: GasReading) -> IndividualGasReading:
     reducing_ratio = raw_values.reducing_gases.value/BASELINE_REDUCING
     nh3_ratio = raw_values.nh3.value/BASELINE_NH3
 
-    nitrogen_dioxide = 6.933 * oxidising_ratio - 0.1866
+    carbon_monoxide = log_equation(-0.656, reducing_ratio, 2.6955)
+
+    nitrogen_dioxide = linear_equation(6.933, oxidising_ratio, -0.1866)
+
+    ethanol = average([
+        log_equation(-0.245, reducing_ratio, 1.0991), log_equation(-0.098, nh3_ratio, 0.5232)
+    ])
+
+    hydrogen = average([
+        log_equation(-0.176, reducing_ratio, 0.7992), \
+        log_equation(-0.067, oxidising_ratio, 1.1687), log_equation(-0.168, nh3_ratio, 1.1908)
+    ])
+
+    ammonia = average([
+        log_equation(-0.14, reducing_ratio, 0.9591), log_equation(-0.158, nh3_ratio, 0.7157)
+    ])
+
+    methane = log_equation(-0.154, reducing_ratio, 1.9652)
+
+    propane = average([
+        log_equation(-0.076, reducing_ratio, 0.7787), log_equation(-0.232, nh3_ratio, 2.388)
+    ])
+
+    iso_butane = log_equation(-0.205, nh3_ratio, 2.1054)
 
     return IndividualGasReading(
-        nitrogen_dioxide=SensorReading(
-            round(nitrogen_dioxide, 2),
-            "ppm",
+        carbon_monoxide=SensorReading(
+            carbon_monoxide,
+            PPM
+        ), nitrogen_dioxide=SensorReading(
+            nitrogen_dioxide,
+            PPM,
+        ), ethanol=SensorReading(
+            ethanol,
+            PPM,
+        ), hydrogen=SensorReading(
+            hydrogen,
+            PPM,
+        ), ammonia=SensorReading(
+            ammonia,
+            PPM,
+        ), methane=SensorReading(
+            methane,
+            PPM,
+        ), propane=SensorReading(
+            propane,
+            PPM,
+        ), iso_butane=SensorReading(
+            iso_butane,
+            PPM,
         )
     )
+
+def linear_equation(m_value, x_value, c_value):
+    '''Will calculate a log equation, giving a small value if negative'''
+    value = m_value * x_value + c_value
+
+    if value < 0:
+        value = 0.01
+
+    return round(value, 2)
+
+def log_equation(m_value, x_value, c_value):
+    '''Will calculate a log equation, giving a small value if negative'''
+    value = m_value * math.log(x_value) + c_value
+
+    if value < 0:
+        value = 0.01
+
+    return round(value, 2)
+
+def average(values):
+    '''Will calculate an average of a list, rounding it to 2 decimal places'''
+    total = sum(values)
+
+    avg = total / len(values)
+
+    return round(avg, 2)
