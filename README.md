@@ -34,3 +34,13 @@ https://learn.sparkfun.com/tutorials/hazardous-gas-monitor/calculate-gas-sensor-
 https://www.sgxsensortech.com/content/uploads/2015/02/1143_Datasheet-MiCS-6814-rev-8.pdf
 
 https://forums.pimoroni.com/t/enviro-ohms-to-ppm/12207/6
+
+### Install
+
+python3 -m venv paq
+
+source paq/bin/activate
+
+pip3 install -r requirements.txt
+
+can then test with python3 main.py
