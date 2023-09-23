@@ -28,7 +28,7 @@ def main():
         sensor = MockSensor()
         screen = MockScreen()
     else:
-        sensor = EnvSensor(config.get_key("temperature_factor"))
+        sensor = EnvSensor(config)
         screen = EnvScreen()
 
     if config.get_key("mock_software"):

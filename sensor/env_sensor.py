@@ -3,13 +3,14 @@ import logging
 
 from models.models import SensorReading, GasReading
 from sensor.sensor import Sensor
+from config.config import Config
 
 from helper.helper import get_cpu_temperature
 
 class EnvSensor(Sensor):
     '''Implements the Sensor class, and connects to the actual hardware.'''
 
-    def __init__(self, factor: float):
+    def __init__(self, cfg: Config):
         from ltr559 import LTR559
         from bme280 import BME280
 
@@ -19,7 +20,9 @@ class EnvSensor(Sensor):
         self.temperature = self.bme280.get_temperature()
         self.cpu_temps = [get_cpu_temperature()] * 5
 
-        self.factor = factor
+        self.temperature_factor = cfg.get_key("temperature_factor")
+        self.humidity_factor = cfg.get_key("humidity_factor")
+        self.pressure_increase = cfg.get_key("pressure_increase")
 
         logging.info("Enviro sensor setup")
 
@@ -30,12 +33,14 @@ class EnvSensor(Sensor):
 
     def read_humidity(self) -> SensorReading:
         '''Will attempt to read the humidity on the bme280 sensor.'''
-        humidity_reading = self.bme280.get_humidity()
+        raw_humidity_reading = self.bme280.get_humidity()
+        humidity_reading = raw_humidity_reading * self.humidity_factor
         return SensorReading(round(humidity_reading, 2), "%")
 
     def read_pressure(self) -> SensorReading:
         '''Will attempt to read the pressure on the bme280 sensor.'''
-        pressure_reading = self.bme280.get_pressure()
+        raw_pressure_reading = self.bme280.get_pressure()
+        pressure_reading = raw_pressure_reading + self.pressure_increase
         return SensorReading(round(pressure_reading, 2), "hPa")
 
     def read_temperature(self) -> SensorReading:
@@ -45,7 +50,9 @@ class EnvSensor(Sensor):
         cpu_temp = get_cpu_temperature()
         self.cpu_temps = self.cpu_temps[1:] + [cpu_temp]
         avg_cpu_temp = sum(self.cpu_temps) / float(len(self.cpu_temps))
-        data = raw_temperature_reading - ((avg_cpu_temp - raw_temperature_reading) / self.factor)
+        data = raw_temperature_reading - ((avg_cpu_temp - raw_temperature_reading))
+
+        data = data * self.temperature_factor
 
         self.temperature = round(data, 2)
 

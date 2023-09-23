@@ -5,7 +5,9 @@
 	"mock_hardware": true,
 	"mock_software": true,
 	"sensor_read_seconds": 2,
-	"temperature_factor": 1,
+	"temperature_factor": 1.9,
+	"humidity_factor": 2,
+	"pressure_increase": 1.5,
 	"log_to_file": false,
 	"send_raw_gas_values": false
 }
