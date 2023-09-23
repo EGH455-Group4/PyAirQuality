@@ -35,6 +35,10 @@ class EnvSensor(Sensor):
         '''Will attempt to read the humidity on the bme280 sensor.'''
         raw_humidity_reading = self.bme280.get_humidity()
         humidity_reading = raw_humidity_reading * self.humidity_factor
+
+        if humidity_reading > 100:
+            humidity_reading = 100
+
         return SensorReading(round(humidity_reading, 2), "%")
 
     def read_pressure(self) -> SensorReading:
