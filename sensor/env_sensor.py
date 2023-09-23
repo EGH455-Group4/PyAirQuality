@@ -36,7 +36,7 @@ class EnvSensor(Sensor):
         raw_humidity_reading = self.bme280.get_humidity()
         humidity_reading = raw_humidity_reading * self.humidity_factor
 
-        humidity_reading = min(humidity_reading, 100)'
+        humidity_reading = min(humidity_reading, 100)
 
         return SensorReading(round(humidity_reading, 2), "%")
 
