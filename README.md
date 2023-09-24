@@ -44,3 +44,9 @@ source paq/bin/activate
 pip3 install -r requirements.txt
 
 can then test with python3 main.py
+
+### Windows commands / troubleshooting commands
+
+pip install virtualenv
+
+ip\Scripts\activate
