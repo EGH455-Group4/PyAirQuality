@@ -16,7 +16,11 @@ class LcdScreen(Resource):
         assert isinstance(self.service, Service)
 
     def options(self):
-        return None, {'Access-Control-Allow-Origin': '*'}
+        '''The HTTP OPTIONS response'''
+        return None, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'POST, OPTIONS'
+        }
 
     def post(self):
         '''The HTTP POST response'''
@@ -27,7 +31,7 @@ class LcdScreen(Resource):
         if display_option not in ACCEPTABLE_LCD_DISPLAYS:
             return marshal(
                 GeneralResponse(status="NOT_AN_OPTION"), general_response_fields
-            ), {'Access-Control-Allow-Origin': '*'}
+            ), 400, {'Access-Control-Allow-Origin': '*'}
 
         self.service.change_lcd_screen(display_option)
         return marshal(GeneralResponse(status="OK"), general_response_fields), \
