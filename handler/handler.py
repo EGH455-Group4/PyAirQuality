@@ -24,7 +24,7 @@ class LcdScreen(Resource):
         if display_option not in ACCEPTABLE_LCD_DISPLAYS:
             return marshal(
                 GeneralResponse(status="NOT_AN_OPTION"), general_response_fields
-            ), 400
+            ), {'Access-Control-Allow-Origin': '*'}
 
         self.service.change_lcd_screen(display_option)
         return marshal(GeneralResponse(status="OK"), general_response_fields), \
