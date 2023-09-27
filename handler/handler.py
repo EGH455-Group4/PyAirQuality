@@ -15,6 +15,9 @@ class LcdScreen(Resource):
         self.service = kwargs['service']
         assert isinstance(self.service, Service)
 
+    def options(self):
+        return None, {'Access-Control-Allow-Origin': '*'}
+
     def post(self):
         '''The HTTP POST response'''
         json_data = request.get_json(force=True)
