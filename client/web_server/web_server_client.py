@@ -12,6 +12,8 @@ class WebServerClient(Client):
     def __init__(self, web_server_address: str, web_server_path: str):
         self.web_server_address = web_server_address
 
+        self.web_server_path = web_server_path
+
         logging.info("Web server client setup.")
 
     def send_air_quality(self, air_quality: AirQuality):
