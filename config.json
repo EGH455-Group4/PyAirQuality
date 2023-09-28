@@ -1,7 +1,8 @@
 {
 	"port": "8050",
 	"image_processing_port": "9060",
-	"web_server_address": "http://127.0.0.1:8080",
+	"web_server_address": "http://127.0.0.1:80",
+	"web_server_path": "saveAirQuality.php",
 	"mock_hardware": true,
 	"mock_software": true,
 	"sensor_read_seconds": 2,

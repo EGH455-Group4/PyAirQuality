@@ -36,7 +36,7 @@ def main():
         web_server_client = MockWebServerClient()
     else:
         image_processing_client = ImageProcessingClient(config.get_key("image_processing_port"))
-        web_server_client = WebServerClient(config.get_key("web_server_address"))
+        web_server_client = WebServerClient(config.get_key("web_server_address"), config.get_key("web_server_path"))
 
     service = Service(
         config,

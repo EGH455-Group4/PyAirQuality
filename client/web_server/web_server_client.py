@@ -9,7 +9,7 @@ from models.models import AirQuality
 
 class WebServerClient(Client):
     '''Implements the Client class and sends requests.'''
-    def __init__(self, web_server_address: str):
+    def __init__(self, web_server_address: str, web_server_path: str):
         self.web_server_address = web_server_address
 
         logging.info("Web server client setup.")
@@ -18,7 +18,7 @@ class WebServerClient(Client):
         '''Will attempt to send air quality data.'''
         logging.info("Sending a request to web server subsystem")
         try:
-            res = requests.post(self.web_server_address+"/air-quality", timeout=5, json={
+            res = requests.post(self.web_server_address+"/"+self.web_server_path, timeout=5, json={
                 "air_quality": air_quality
             }, headers={'Content-Type': 'application/json'})
 
