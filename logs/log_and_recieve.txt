@@ -1,0 +1,7 @@
+2023-09-24 01:47:42.043 INFO     Sensor was read and is: light: 6.97Lux, gas_reading: oxidising_gases: 0.01ppm, reducing_gases: 4.81ppm, nh3: 2.33ppm, humidity: 60.27%, pressure: 1024.73hPa, temperature: 26.13C, individual_gases: carbon_monoxide: 2.75ppm, nitrogen_dioxide: 0.41ppm, ethanol: 0.85ppm, hydrogen: 1.15ppm, ammonia: 0.9ppm, methane: 1.98ppm, propane: 1.67ppm, iso-butane: 2.24ppm.
+2023-09-24 01:47:42.044 INFO     Sending a request to web server subsystem
+
+...
+
+{'air_quality': {'sensors': {'light': {'value': 6.97, 'unit': 'Lux'}, 'hazardous_gases': {'oxidising_gases': {'value': 0.01, 'unit': 'ppm'}, 'reducing_gases': {'value': 4.81, 'unit': 'ppm'}, 'nh3': {'value': 2.33, 'unit': 'ppm'}}, 'humidity': {'value': 60.27, 'unit': '%'}, 'pressure': {'value': 1024.73, 'unit': 'hPa'}, 'temperature': {'value': 26.13, 'unit': 'C'}, 'individual_gases': {'carbon_monoxide': {'value': 2.75, 'unit': 'ppm'}, 'nitrogen_dioxide': {'value': 0.41, 'unit': 'ppm'}, 'ethanol': {'value': 0.85, 'unit': 'ppm'}, 'hydrogen': {'value': 1.15, 'unit': 'ppm'}, 'ammonia': {'value': 0.9, 'unit': 'ppm'}, 'methane': {'value': 1.98, 'unit': 'ppm'}, 'propane': {'value': 1.67, 'unit': 'ppm'}, 'iso_butane': {'value': 2.24, 'unit': 'ppm'}}}, 'timestamp': '2023-09-24T01:47:42.013553'}}
+INFO:werkzeug:192.168.0.246 - - [30/Sep/2023 06:45:13] "POST /air-quality HTTP/1.1" 200 -

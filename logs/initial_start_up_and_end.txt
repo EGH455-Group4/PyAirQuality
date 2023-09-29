@@ -1,0 +1,33 @@
+(paq) tom@tompi:~/PyAirQuality $ python3 main.py 
+2023-09-24 01:47:06.405 INFO     Enviro sensor setup
+2023-09-24 01:47:07.974 INFO     Enviro screen setup
+2023-09-24 01:47:07.975 INFO     Image processing client setup.
+2023-09-24 01:47:07.975 INFO     Web server client setup.
+2023-09-24 01:47:07.976 INFO     Service was setup
+2023-09-24 01:47:07.987 INFO     Handler was setup.
+ * Serving Flask app 'handler.handler'
+ * Debug mode: off
+2023-09-24 01:47:07.996 INFO     WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8050
+ * Running on http://192.168.0.246:8050
+2023-09-24 01:47:08.003 INFO     Press CTRL+C to quit
+2023-09-24 01:47:08.086 INFO     Sensor was read and is: light: 6.97Lux, gas_reading: oxidising_gases: 0.51ppm, reducing_gases: 0.09ppm, nh3: 0.02ppm, humidity: 60.47%, pressure: 1024.71hPa, temperature: 21.88C, individual_gases: carbon_monoxide: 0.66ppm, nitrogen_dioxide: 22.61ppm, ethanol: 0.34ppm, hydrogen: 0.73ppm, ammonia: 0.46ppm, methane: 1.49ppm, propane: 1.23ppm, iso-butane: 1.7ppm.
+2023-09-24 01:47:08.087 INFO     Sending a request to web server subsystem
+2023-09-24 01:47:08.120 INFO     setting lcd screen to 192.168.0.246
+2023-09-24 01:47:10.010 INFO     Sensor was read and is: light: 6.97Lux, gas_reading: oxidising_gases: 0.01ppm, reducing_gases: 6.81ppm, nh3: 5.74ppm, humidity: 60.53%, pressure: 1024.71hPa, temperature: 22.2C, individual_gases: carbon_monoxide: 2.93ppm, nitrogen_dioxide: 0.26ppm, ethanol: 0.92ppm, hydrogen: 1.2ppm, ammonia: 0.96ppm, methane: 2.02ppm, propane: 1.74ppm, iso-butane: 2.35ppm.
+2023-09-24 01:47:10.011 INFO     Sending a request to web server subsystem
+2023-09-24 01:47:12.011 INFO     Sensor was read and is: light: 6.97Lux, gas_reading: oxidising_gases: 0.01ppm, reducing_gases: 5.42ppm, nh3: 5.31ppm, humidity: 60.56%, pressure: 1024.71hPa, temperature: 22.84C, individual_gases: carbon_monoxide: 2.81ppm, nitrogen_dioxide: 0.24ppm, ethanol: 0.89ppm, hydrogen: 1.19ppm, ammonia: 0.94ppm, methane: 1.99ppm, propane: 1.72ppm, iso-butane: 2.34ppm.
+2023-09-24 01:47:12.013 INFO     Sending a request to web server subsystem
+2023-09-24 01:47:14.014 INFO     Sensor was read and is: light: 6.97Lux, gas_reading: oxidising_gases: 0.01ppm, reducing_gases: 5.07ppm, nh3: 4.85ppm, humidity: 60.55%, pressure: 1024.7hPa, temperature: 23.5C, individual_gases: carbon_monoxide: 2.77ppm, nitrogen_dioxide: 0.25ppm, ethanol: 0.88ppm, hydrogen: 1.18ppm, ammonia: 0.94ppm, methane: 1.98ppm, propane: 1.72ppm, iso-butane: 2.33ppm.
+2023-09-24 01:47:14.015 INFO     Sending a request to web server subsystem
+
+...
+
+2023-09-24 02:00:37.176 INFO     Sending a request to web server subsystem
+2023-09-24 02:00:39.177 INFO     Sensor was read and is: light: 8.13Lux, gas_reading: oxidising_gases: 0.03ppm, reducing_gases: 4.94ppm, nh3: 1.66ppm, humidity: 54.39%, pressure: 1024.9hPa, temperature: 29.69C, individual_gases: carbon_monoxide: 2.76ppm, nitrogen_dioxide: 1.11ppm, ethanol: 0.84ppm, hydrogen: 1.12ppm, ammonia: 0.88ppm, methane: 1.98ppm, propane: 1.65ppm, iso-butane: 2.21ppm.
+2023-09-24 02:00:39.178 INFO     Sending a request to web server subsystem
+2023-09-24 02:00:41.179 INFO     Sensor was read and is: light: 8.13Lux, gas_reading: oxidising_gases: 0.03ppm, reducing_gases: 4.98ppm, nh3: 1.66ppm, humidity: 54.35%, pressure: 1024.9hPa, temperature: 29.79C, individual_gases: carbon_monoxide: 2.76ppm, nitrogen_dioxide: 1.11ppm, ethanol: 0.84ppm, hydrogen: 1.12ppm, ammonia: 0.88ppm, methane: 1.98ppm, propane: 1.65ppm, iso-butane: 2.21ppm.
+2023-09-24 02:00:41.180 INFO     Sending a request to web server subsystem
+2023-09-24 02:00:43.181 INFO     Sensor was read and is: light: 5.99Lux, gas_reading: oxidising_gases: 0.03ppm, reducing_gases: 4.98ppm, nh3: 1.66ppm, humidity: 55.22%, pressure: 1024.91hPa, temperature: 29.5C, individual_gases: carbon_monoxide: 2.76ppm, nitrogen_dioxide: 1.11ppm, ethanol: 0.84ppm, hydrogen: 1.12ppm, ammonia: 0.88ppm, methane: 1.98ppm, propane: 1.65ppm, iso-butane: 2.21ppm.
+2023-09-24 02:00:43.182 INFO     Sending a request to web server subsystem
