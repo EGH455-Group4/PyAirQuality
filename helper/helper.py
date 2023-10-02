@@ -25,7 +25,7 @@ def get_cpu_temperature() -> float:
 def generate_random_gas_reading() -> GasReading:
     '''Will give a random GasReading value.'''
     return GasReading(
-        random_sensor_reading_between(0, 5, "kOhms"),
+        random_sensor_reading_between(1, 5, "kOhms"),
         random_sensor_reading_between(400, 600, "kOhms"),
         random_sensor_reading_between(40, 60, "kOhms"),
     )
@@ -41,26 +41,29 @@ def random_sensor_reading_between(lowest, highest, unit) -> SensorReading:
 
 def gas_to_ppm_conversion(raw_values: GasReading):
     '''Will convert kOhms to ppm values'''
+    raw_oxidising = max(raw_values.oxidising_gases.value, 0.01)
+
     oxidising_ppm = math.pow(10, math.log10(
-        raw_values.oxidising_gases.value/BASELINE_OXIDISING
+        raw_oxidising/BASELINE_OXIDISING
     ) - 0.8129)
 
-    if oxidising_ppm < 0:
-        oxidising_ppm = 0.01
+    oxidising_ppm = max(oxidising_ppm, 0.01)
+
+    raw_reducing = max(raw_values.reducing_gases.value, 0.01)
 
     reducing_ppm = math.pow(10, -1.25 * math.log10(
-        raw_values.reducing_gases.value/BASELINE_REDUCING
+        raw_reducing/BASELINE_REDUCING
     ) + 0.64)
 
-    if reducing_ppm < 0:
-        reducing_ppm = 0.01
+    reducing_ppm = max(reducing_ppm, 0.01)
+
+    raw_nh3 = max(raw_values.nh3.value, 0.01)
 
     nh3_ppm = math.pow(10, -1.8 * math.log10(
-        raw_values.nh3.value/BASELINE_NH3
+        raw_nh3/BASELINE_NH3
     ) - 0.163)
 
-    if nh3_ppm < 0:
-        nh3_ppm = 0.01
+    nh3_ppm = max(nh3_ppm, 0.01)
 
     return GasReading(
         oxidising_gases=SensorReading(
@@ -77,9 +80,13 @@ def gas_to_ppm_conversion(raw_values: GasReading):
 
 def create_individual_gases(raw_values: GasReading) -> IndividualGasReading:
     '''Will create individual gases object'''
-    oxidising_ratio = raw_values.oxidising_gases.value/BASELINE_OXIDISING
-    reducing_ratio = raw_values.reducing_gases.value/BASELINE_REDUCING
-    nh3_ratio = raw_values.nh3.value/BASELINE_NH3
+    raw_oxidising = max(raw_values.oxidising_gases.value, 0.01)
+    raw_reducing = max(raw_values.reducing_gases.value, 0.01)
+    raw_nh3 = max(raw_values.nh3.value, 0.01)
+
+    oxidising_ratio = raw_oxidising/BASELINE_OXIDISING
+    reducing_ratio = raw_reducing/BASELINE_REDUCING
+    nh3_ratio = raw_nh3/BASELINE_NH3
 
     carbon_monoxide = log_equation(-0.656, reducing_ratio, 2.6955)
 
