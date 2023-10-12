@@ -36,6 +36,7 @@ def main():
         None,
         None,
         True,
+        config.get_key("mock_screen")
     )
 
     service.update_lcd_screen()
