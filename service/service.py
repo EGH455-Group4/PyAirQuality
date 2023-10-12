@@ -6,6 +6,8 @@ import logging
 from config.config import Config
 from sensor.sensor import Sensor
 from screen.screen import Screen
+from screen.mock_screen import MockScreen
+from screen.env_screen import EnvScreen
 from models.models import AirQuality,Sensors,SensorReading
 from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
 from client.image_processing.client import Client as IPClient
@@ -18,7 +20,7 @@ class Service():
     def __init__(
             self, config: Config, sensor: Sensor, screen: Screen, ip_address: str,
             image_processing_client: IPClient, web_server_client: WSClient,
-            send_raw_gas_values: bool,
+            send_raw_gas_values: bool, mocked_screen: bool,
         ):
         self.config = config
         self.sensor = sensor
@@ -26,6 +28,7 @@ class Service():
         self.image_processing_client = image_processing_client
         self.web_server_client = web_server_client
         self.send_raw_gas_values = send_raw_gas_values
+        self.mocked_screen = mocked_screen
 
         self.read_time = datetime.now()
         self.sensors = Sensors(
@@ -51,6 +54,19 @@ class Service():
         self.ip_address_set = False
 
         logging.info("Screen was set to %s", option)
+
+    def refresh_lcd_screen(self):
+        '''Will refresh the LCD screen.'''
+        logging.info("Refreshing screen")
+        self.screen = None
+
+        if self.mocked_screen:
+            self.screen = MockScreen()
+        else:
+            self.screen = EnvScreen()
+
+        self.screen_setting = SHOW_IP_ADDRESS
+        self.ip_address_set = False
 
     def run_read_sensors(self):
         '''Will loop and collect information if running.'''

@@ -16,7 +16,7 @@ def main():
 
     setup_logging(config.get_key("log_to_file"))
 
-    if config.get_key("mock_hardware"):
+    if config.get_key("mock_screen"):
         screen = MockScreen()
     else:
         screen = EnvScreen()
@@ -36,6 +36,7 @@ def main():
         None,
         None,
         True,
+        config.get_key("mock_screen")
     )
 
     service.update_lcd_screen()

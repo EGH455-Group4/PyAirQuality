@@ -39,6 +39,27 @@ class LcdScreen(Resource):
         return marshal(GeneralResponse(status="OK"), general_response_fields), \
             {'Access-Control-Allow-Origin': '*'}
 
+class RefreshLcdScreen(Resource):
+    '''Used to refresh the LCD screen on the sensor'''
+    def __init__(self, **kwargs):
+        self.service = kwargs['service']
+        assert isinstance(self.service, Service)
+
+    def options(self):
+        '''The HTTP OPTIONS response'''
+        return None, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            # pylint: disable=C0301
+            'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+        }
+
+    def post(self):
+        '''The HTTP POST response'''
+        self.service.refresh_lcd_screen()
+        return marshal(GeneralResponse(status="OK"), general_response_fields), \
+            {'Access-Control-Allow-Origin': '*'}
+
 class Handler():
     '''Used to create the air quality server'''
     def __init__(self, config: Config, service: Service):
@@ -46,6 +67,10 @@ class Handler():
         self.api = Api(self.app)
 
         self.api.add_resource(LcdScreen, '/lcd-screen', resource_class_kwargs={
+            'service': service
+        })
+
+        self.api.add_resource(RefreshLcdScreen, '/refresh-lcd-screen', resource_class_kwargs={
             'service': service
         })
 
