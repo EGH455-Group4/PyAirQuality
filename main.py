@@ -24,12 +24,15 @@ def main():
 
     setup_logging(config.get_key("log_to_file"))
 
-    if config.get_key("mock_hardware"):
-        sensor = MockSensor()
+    if config.get_key("mock_screen"):
         screen = MockScreen()
     else:
-        sensor = EnvSensor(config)
         screen = EnvScreen()
+
+    if config.get_key("mock_sensor"):
+        sensor = MockSensor()
+    else:
+        sensor = EnvSensor(config)
 
     if config.get_key("mock_software"):
         image_processing_client = MockImageProcessingClient()
