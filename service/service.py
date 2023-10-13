@@ -12,7 +12,7 @@ from models.models import AirQuality,Sensors,SensorReading
 from models.constants import SHOW_IP_ADDRESS, SHOW_TEMPERATURE, SHOW_IMAGE_PROCESSING
 from client.image_processing.client import Client as IPClient
 from client.web_server.client import Client as WSClient
-from helper.helper import gas_to_ppm_conversion, create_individual_gases
+from helper.helper import gas_to_ppm_conversion, create_individual_gases, get_cpu_temperature
 
 class Service():
     '''Service will have service level functions.'''
@@ -116,9 +116,8 @@ class Service():
             self.screen.set_lcd_screen(self.ip_address)
             self.ip_address_set = True
         elif self.screen_setting == SHOW_TEMPERATURE:
-            self.screen.set_lcd_screen(
-                str(self.sensors.temperature.value) + self.sensors.temperature.unit
-            )
+            temperature_reading = f"Sensor: {self.sensors.temperature.value} {self.sensors.temperature.unit} \n Pi: {round(get_cpu_temperature(), 2)} C"
+            self.screen.set_lcd_screen(temperature_reading)
         elif self.screen_setting == SHOW_IMAGE_PROCESSING:
             self.image_processing_client.current_image()
             self.screen.set_lcd_screen(SHOW_IMAGE_PROCESSING)
